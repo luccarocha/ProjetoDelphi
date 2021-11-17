@@ -1,0 +1,328 @@
+unit U_pesq_forne;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, U_pesq_client, Data.DB,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls;
+
+type
+  Tfrm_pesq_forne = class(Tfrm_pesq_client)
+    q_pesq_padraoID_FORNECEDOR: TIntegerField;
+    q_pesq_padraoCNPJ: TStringField;
+    q_pesq_padraoPAIS: TStringField;
+    DBGrid2: TDBGrid;
+    DataSource1: TDataSource;
+    FDQuery1: TFDQuery;
+    FDQuery1ID_FORNECEDOR: TIntegerField;
+    FDQuery1NOME: TStringField;
+    FDQuery1ENDERECO: TStringField;
+    FDQuery1NUMERO: TIntegerField;
+    FDQuery1BAIRRO: TStringField;
+    FDQuery1CIDADE: TStringField;
+    FDQuery1UF: TStringField;
+    FDQuery1CEP: TStringField;
+    FDQuery1TELEFONE: TStringField;
+    FDQuery1CNPJ: TStringField;
+    FDQuery1EMAIL: TStringField;
+    FDQuery1CADASTRO: TDateField;
+    FDQuery1PAIS: TStringField;
+    procedure FormActivate(Sender: TObject);
+    procedure cb_chave_pesquisaChange(Sender: TObject);
+    procedure bt_atualizarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_pesq_forne: Tfrm_pesq_forne;
+
+implementation
+
+{$R *.dfm}
+
+procedure Tfrm_pesq_forne.bt_atualizarClick(Sender: TObject);
+begin
+  Q_pesq_padrao.Close; // fecha
+  Q_pesq_padrao.SQL.Add(''); // limpa
+  Q_pesq_padrao.Params.Clear;  //limpa os parametros
+  Q_pesq_padrao.SQL.Clear;  // limpa o sql
+  Q_pesq_padrao.SQL.Add('SELECT ID_FORNECEDOR,NOME,ENDERECO,NUMERO,BAIRRO,CIDADE,UF,TELEFONE,CNPJ,CEP,EMAIL,CADASTRO FROM FORNECEDOR'); // add sql
+
+  case cb_chave_pesquisa.ItemIndex of
+
+    0:begin
+      Q_pesq_padrao.SQL.Add('WHERE ID_FORNECEDOR =:PID_FORNECEDOR ');
+      Q_pesq_padrao.ParamByName('PID_FORNECEDOR').AsString := ed_nome.Text;
+    end;
+
+    1:begin
+      Q_pesq_padrao.SQL.Add('WHERE NOME LIKE :PNOME ');
+      Q_pesq_padrao.ParamByName('PNOME').AsString := '%' + ed_nome.Text + '%';
+    end;
+
+    2:begin
+      Q_pesq_padrao.SQL.Add('WHERE ENDERECO LIKE :PENDERECO ');
+      Q_pesq_padrao.ParamByName('PENDERECO').AsString := '%' + ed_nome.Text + '%';
+    end;
+
+    3:begin
+      Q_pesq_padrao.SQL.Add('WHERE BAIRRO LIKE :PBAIRRO ');
+      Q_pesq_padrao.ParamByName('PBAIRRO').AsString := '%' + ed_nome.Text + '%';
+    end;
+
+    4:begin
+      Q_pesq_padrao.SQL.Add('WHERE CIDADE LIKE :PCIDADE ');
+      Q_pesq_padrao.ParamByName('PCIDADE').AsString := '%' + ed_nome.Text + '%';
+    end;
+
+    5:begin
+      Q_pesq_padrao.SQL.Add('WHERE UF LIKE :PUF ');
+      Q_pesq_padrao.ParamByName('PUF').AsString := '%' + ed_nome.Text + '%';
+    end;
+
+    6:begin
+      Q_pesq_padrao.SQL.Add('WHERE CEP =:PCEP ');
+      Q_pesq_padrao.ParamByName('PCEP').AsString := mk_cep.Text;
+    end;
+
+    7:begin
+      Q_pesq_padrao.SQL.Add('WHERE CNPJ =:PCNPJ ');
+      Q_pesq_padrao.ParamByName('PCNPJ').AsString := mk_cpf.Text;
+    end;
+
+    8:begin
+      Q_pesq_padrao.SQL.Add('WHERE UF LIKE :PPAIS ');
+      Q_pesq_padrao.ParamByName('PPAIS').AsString := '%' + ed_nome.Text + '%';
+    end;
+
+    9:begin
+      Q_pesq_padrao.SQL.Add('WHERE CADASTRO =:PCADASTRO ');
+      Q_pesq_padrao.ParamByName('PCADASTRO').AsDate := strTodate(mk_inicio.Text);
+    end;
+
+    10:begin
+      Q_pesq_padrao.SQL.Add('WHERE CADASTRO BETWEEN :PINICIO AND :PFIM');
+      Q_pesq_padrao.ParamByName('PINICiO').AsDate := strTodate(mk_inicio.Text);
+      Q_pesq_padrao.ParamByName('PFIM').AsDate := strTodate(mk_fim.Text);
+    end;
+
+    11:begin
+       Q_pesq_padrao.SQL.Add('ORDER BY ID_FORNECEDOR');
+    end;
+
+
+  end;
+
+  //Q_pesq_padrao.SQL.Add('WHERE ID_USUARIO=:PID_USUARIO');
+  //Q_pesq_padrao.ParamByName('PID_USUARIO').AsString := ed_nome.Text;
+  Q_pesq_padrao.Open;
+
+  if Q_pesq_padrao.IsEmpty then
+    begin
+      Messagedlg('Nenhum Registro Encontrado!', MtInformation, [mbOk], 0);
+    end
+    else
+    abort
+
+end;
+
+procedure Tfrm_pesq_forne.cb_chave_pesquisaChange(Sender: TObject);
+begin
+   case cb_chave_pesquisa.ItemIndex of
+
+      0:begin
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := true;
+        ed_nome.SetFocus;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := false;
+        lb_desc.Visible := true;
+        lb_desc.Caption := 'Digite o Código';
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+      end;
+
+      1:begin //Nome
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := true;
+        ed_nome.SetFocus;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := false;
+        lb_desc.Visible := true;
+        lb_desc.Caption := 'Digite o Nome';
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+      end;
+
+      2:begin  //Logradouro
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := true;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite o Logradouro';
+        ed_nome.SetFocus;
+        lb_desc.Visible := false;
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+      end;
+
+      3:begin  //Bairro
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := true;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite o Bairro';
+        ed_nome.SetFocus;
+        lb_desc.Visible := false;
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+      end;
+
+      4:begin  //Cidade
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := true;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite a Cidade';
+        ed_nome.SetFocus;
+        lb_desc.Visible := false;
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+      end;
+
+      5:begin  //UF
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := true;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite o Estado';
+        ed_nome.SetFocus;
+        lb_desc.Visible := false;
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+      end;
+
+      6:begin  //CEP
+
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite o CEP';
+        mk_cep.Visible := true;
+        mk_cep.SetFocus;
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := false;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_desc.Visible := false;
+
+        mk_cpf.Visible := false;
+      end;
+
+      7:begin  //CPF
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite o CNPJ';
+        mk_cpf.Visible := true;
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := false;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        mk_cpf.SetFocus;
+        lb_desc.Visible := false;
+        mk_cep.Visible := false;
+
+      end;
+
+      8:begin  //PAIS
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := true;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite o País';
+        ed_nome.SetFocus;
+        lb_desc.Visible := false;
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+      end;
+
+
+      9:begin  //Data Cadastro
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := false;
+        mk_inicio.Visible := true;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite a Data de Cadastro';
+        mk_inicio.SetFocus;
+        lb_desc.Visible := false;
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+      end;
+
+      10:begin  //Periodo
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := false;
+        mk_inicio.Visible := true;
+        mk_fim.Visible := true;
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite o Período';
+        lb_desc.Visible := false;
+        mk_inicio.SetFocus;
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+        mk_cep.Visible := false;
+      end;
+
+       11:begin
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := false;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := false;
+        lb_inicio.Caption := 'Digite o Período';
+        lb_desc.Visible := false;
+        bt_buscar.SetFocus;
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+      end;
+
+
+    end
+
+end;
+
+procedure Tfrm_pesq_forne.FormActivate(Sender: TObject);
+begin
+  Q_pesq_padrao.Close; // fecha
+  Q_pesq_padrao.SQL.Add(''); // limpa
+  Q_pesq_padrao.Params.Clear;  //limpa os parametros
+  Q_pesq_padrao.SQL.Clear;  // limpa o sql
+  Q_pesq_padrao.SQL.Add('SELECT * FROM FORNECEDOR ORDER BY ID_FORNECEDOR'); // add sql
+  Q_pesq_padrao.Open;
+end;
+
+end.

@@ -1,0 +1,151 @@
+inherited frm_pesq_user: Tfrm_pesq_user
+  BorderStyle = bsToolWindow
+  Caption = '   Visualiza Usu'#225'rios'
+  ClientHeight = 537
+  ClientWidth = 949
+  Position = poScreenCenter
+  Visible = False
+  OnActivate = FormActivate
+  ExplicitWidth = 955
+  ExplicitHeight = 566
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    Width = 949
+    ExplicitWidth = 949
+    inherited cb_chave_pesquisa: TComboBox
+      OnChange = cb_chave_pesquisaChange
+    end
+    inherited bt_buscar: TBitBtn
+      Left = 526
+      Width = 73
+      OnClick = bt_buscarClick
+      ExplicitLeft = 526
+      ExplicitWidth = 73
+    end
+    object bt_cadastrar: TBitBtn
+      Left = 605
+      Top = 20
+      Width = 75
+      Height = 35
+      Caption = '&Cadastrar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+      OnClick = bt_cadastrarClick
+    end
+    object bt_atualizar: TBitBtn
+      Left = 686
+      Top = 20
+      Width = 75
+      Height = 35
+      Caption = '&Atualizar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 7
+      OnClick = bt_atualizarClick
+    end
+  end
+  inherited Panel2: TPanel
+    Top = 488
+    Width = 949
+    Height = 49
+    ExplicitTop = 488
+    ExplicitWidth = 949
+    ExplicitHeight = 49
+  end
+  inherited DBGrid1: TDBGrid
+    Width = 949
+    Height = 415
+    DataSource = ds_pesq_padrao
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'ID_USUARIO'
+        Title.Caption = 'C'#211'D. USU'#193'RIO'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 93
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NOME'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 625
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'TIPO'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 78
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CADASTRO'
+        Title.Caption = 'DATA DE CADASTRO'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 134
+        Visible = True
+      end>
+  end
+  inherited q_pesq_padrao: TFDQuery
+    SQL.Strings = (
+      
+        'select id_usuario, nome, tipo, cadastro from usuario order by id' +
+        '_usuario')
+    Top = 112
+    object q_pesq_padraoID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+      Origin = 'ID_USUARIO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object q_pesq_padraoNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 100
+    end
+    object q_pesq_padraoTIPO: TStringField
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      Required = True
+      Size = 30
+    end
+    object q_pesq_padraoCADASTRO: TDateField
+      FieldName = 'CADASTRO'
+      Origin = 'CADASTRO'
+      Required = True
+    end
+  end
+  inherited ds_pesq_padrao: TDataSource
+    Left = 736
+    Top = 120
+  end
+end
