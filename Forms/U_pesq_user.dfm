@@ -12,7 +12,7 @@ inherited frm_pesq_user: Tfrm_pesq_user
     Width = 949
     ExplicitWidth = 949
     object bt_cadastrar: TBitBtn [6]
-      Left = 628
+      Left = 708
       Top = 20
       Width = 75
       Height = 35
@@ -27,7 +27,7 @@ inherited frm_pesq_user: Tfrm_pesq_user
       OnClick = bt_cadastrarClick
     end
     object bt_atualizar: TBitBtn [7]
-      Left = 709
+      Left = 789
       Top = 20
       Width = 75
       Height = 35
@@ -38,18 +38,18 @@ inherited frm_pesq_user: Tfrm_pesq_user
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 6
       OnClick = bt_atualizarClick
     end
     inherited bt_buscar: TBitBtn
-      Left = 549
+      Left = 629
       TabOrder = 5
       OnClick = bt_buscarClick
-      ExplicitLeft = 549
+      ExplicitLeft = 629
     end
-    inherited BitBtn1: TBitBtn
+    inherited bt_transferir: TBitBtn
       Left = 790
-      TabOrder = 6
+      OnClick = bt_transferirClick
       ExplicitLeft = 790
     end
     inherited BitBtn2: TBitBtn
@@ -70,6 +70,7 @@ inherited frm_pesq_user: Tfrm_pesq_user
     Width = 949
     Height = 415
     DataSource = ds_pesq_padrao
+    OnDblClick = DBGrid1DblClick
     Columns = <
       item
         Expanded = False

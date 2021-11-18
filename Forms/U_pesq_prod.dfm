@@ -5,7 +5,6 @@ inherited frm_pesq_prod: Tfrm_pesq_prod
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    ExplicitWidth = 945
     inherited cb_chave_pesquisa: TComboBox
       Items.Strings = (
         'C'#243'digo'
@@ -16,12 +15,15 @@ inherited frm_pesq_prod: Tfrm_pesq_prod
         'Todos')
     end
     inherited bt_buscar: TBitBtn
-      Left = 535
+      Left = 615
       OnClick = bt_buscarClick
-      ExplicitLeft = 535
+      ExplicitLeft = 615
+    end
+    inherited bt_transferir: TBitBtn
+      OnClick = bt_transferirClick
     end
     object bt_atualizar: TBitBtn
-      Left = 695
+      Left = 775
       Top = 20
       Width = 75
       Height = 35
@@ -35,7 +37,7 @@ inherited frm_pesq_prod: Tfrm_pesq_prod
       TabOrder = 6
     end
     object bt_cadastrar: TBitBtn
-      Left = 614
+      Left = 694
       Top = 20
       Width = 75
       Height = 35
@@ -47,16 +49,14 @@ inherited frm_pesq_prod: Tfrm_pesq_prod
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 7
+      OnClick = bt_cadastrarClick
     end
-  end
-  inherited Panel2: TPanel
-    ExplicitTop = 561
-    ExplicitWidth = 945
   end
   inherited DBGrid1: TDBGrid
     DataSource = ds_pesq_padrao
     ParentFont = False
     TitleFont.Style = [fsBold]
+    OnDblClick = DBGrid1DblClick
     Columns = <
       item
         Expanded = False
@@ -102,13 +102,14 @@ inherited frm_pesq_prod: Tfrm_pesq_prod
         Expanded = False
         FieldName = 'NOME'
         Title.Caption = 'FORNECEDOR'
-        Width = 141
+        Width = 123
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'CADASTRO'
         Title.Caption = 'DATA DE CADASTRO'
+        Width = 130
         Visible = True
       end>
   end

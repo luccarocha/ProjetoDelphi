@@ -25,7 +25,7 @@ type
     q_pesq_padrao: TFDQuery;
     ds_pesq_padrao: TDataSource;
     bt_buscar: TBitBtn;
-    BitBtn1: TBitBtn;
+    bt_transferir: TBitBtn;
     BitBtn2: TBitBtn;
     procedure cb_chave_pesquisaChange(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -34,6 +34,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    codigo:Integer;
   end;
 
 var

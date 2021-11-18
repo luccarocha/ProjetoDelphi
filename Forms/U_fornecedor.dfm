@@ -406,6 +406,7 @@ inherited frm_fornecedor: Tfrm_fornecedor
       FieldName = 'ID_FORNECEDOR'
       Origin = 'ID_FORNECEDOR'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object Q_padraoNOME: TStringField
       FieldName = 'NOME'

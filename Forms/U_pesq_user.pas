@@ -23,6 +23,8 @@ type
     procedure bt_cadastrarClick(Sender: TObject);
     procedure ExibeTelaCadastroUsuario();
     procedure bt_atualizarClick(Sender: TObject);
+    procedure bt_transferirClick(Sender: TObject);
+    procedure DBGrid1DblClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -84,8 +86,6 @@ begin
 
   end;
 
-  //Q_pesq_padrao.SQL.Add('WHERE ID_USUARIO=:PID_USUARIO');
-  //Q_pesq_padrao.ParamByName('PID_USUARIO').AsString := ed_nome.Text;
   Q_pesq_padrao.Open;
 
   if Q_pesq_padrao.IsEmpty then
@@ -100,7 +100,24 @@ end;
 procedure Tfrm_pesq_user.bt_cadastrarClick(Sender: TObject);
 begin
   ExibeTelaCadastroUsuario;
-  //frm_pesq_user.Close;
+end;
+
+procedure Tfrm_pesq_user.bt_transferirClick(Sender: TObject);
+begin
+  inherited;
+  if Q_pesq_padrao.RecordCount > 0 then
+    begin
+      codigo := Q_pesq_padraoID_USUARIO.AsInteger;
+    end
+  else
+  abort;
+
+end;
+
+procedure Tfrm_pesq_user.DBGrid1DblClick(Sender: TObject);
+begin
+  inherited;
+  bt_transferir.Click;
 
 end;
 

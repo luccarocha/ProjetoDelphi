@@ -25,6 +25,11 @@ type
     procedure cb_chave_pesquisaChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure bt_buscarClick(Sender: TObject);
+    procedure bt_cadastrarClick(Sender: TObject);
+    procedure ExibeTelaCadastroUsuario();
+    procedure bt_transferirClick(Sender: TObject);
+    procedure DBGrid1DblClick(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -37,6 +42,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses U_produto;
 
 procedure Tfrm_pesq_prod.bt_buscarClick(Sender: TObject);
 begin
@@ -100,6 +107,23 @@ begin
     else
     abort
 
+
+end;
+
+procedure Tfrm_pesq_prod.bt_cadastrarClick(Sender: TObject);
+begin
+  ExibeTelaCadastroUsuario;
+end;
+
+procedure Tfrm_pesq_prod.bt_transferirClick(Sender: TObject);
+begin
+  inherited;
+  if Q_pesq_padrao.RecordCount > 0 then
+    begin
+      codigo := Q_pesq_padraoID_PRODUTO.AsInteger;
+    end
+  else
+  abort;
 
 end;
 
@@ -189,6 +213,25 @@ begin
 
     end
 
+end;
+
+procedure Tfrm_pesq_prod.DBGrid1DblClick(Sender: TObject);
+begin
+  inherited;
+  bt_transferir.Click;
+
+end;
+
+procedure Tfrm_pesq_prod.ExibeTelaCadastroUsuario;
+begin
+  frm_produto := Tfrm_produto.Create(self);
+  Frm_produto.ShowModal;
+  try
+
+  finally
+    frm_produto.Free;
+    frm_produto := nil;
+  end;
 end;
 
 procedure Tfrm_pesq_prod.FormActivate(Sender: TObject);

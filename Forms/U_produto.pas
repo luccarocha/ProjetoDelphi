@@ -41,6 +41,8 @@ type
     Label9: TLabel;
     DBEdit1: TDBEdit;
     procedure bt_novoClick(Sender: TObject);
+    procedure bt_pesquisarClick(Sender: TObject);
+    procedure ExibeTelaVisualizaProduto();
 
   private
     { Private declarations }
@@ -55,11 +57,32 @@ implementation
 
 {$R *.dfm}
 
+uses U_pesq_prod;
+
 procedure Tfrm_produto.bt_novoClick(Sender: TObject);
 begin
   inherited;
   db_cadastro.Text := DateTostr(now);
   db_id_produto.SetFocus;
+end;
+
+procedure Tfrm_produto.bt_pesquisarClick(Sender: TObject);
+begin
+  ExibeTelaVisualizaProduto;
+end;
+
+procedure Tfrm_produto.ExibeTelaVisualizaProduto;
+begin
+    frm_pesq_prod := Tfrm_pesq_prod.Create(self);
+    Frm_pesq_prod.ShowModal;
+
+    try
+      Q_padrao.Open();
+      Q_padrao.Locate('ID_PRODUTO',Frm_pesq_PROD.codigo,[]);
+    finally
+      frm_pesq_prod.Free;
+      frm_pesq_prod := nil;
+    end;
 end;
 
 end.

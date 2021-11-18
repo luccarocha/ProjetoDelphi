@@ -34,6 +34,9 @@ type
     procedure ExibeTelaCadastroCliente();
     procedure bt_buscarClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure DBGrid1DblClick(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -47,7 +50,19 @@ implementation
 
 {$R *.dfm}
 
-uses U_clientes;
+uses U_clientes, U_Principal;
+
+procedure Tfrm_pesq_client.BitBtn1Click(Sender: TObject);
+begin
+  inherited;
+  if Q_pesq_padrao.RecordCount > 0 then
+    begin
+      codigo := Q_pesq_padraoID_CLIENTE.AsInteger;
+    end
+  else
+  abort;
+
+end;
 
 procedure Tfrm_pesq_client.bt_atualizarClick(Sender: TObject);
 begin
@@ -123,9 +138,7 @@ begin
 
 
   end;
-
   Q_pesq_padrao.Open;
-
   if Q_pesq_padrao.IsEmpty then
     begin
       Messagedlg('Nenhum Registro Encontrado!', MtInformation, [mbOk], 0);
@@ -138,7 +151,6 @@ end;
 procedure Tfrm_pesq_client.bt_cadastrarClick(Sender: TObject);
 begin
   ExibeTelaCadastroCliente;
-
 end;
 
 procedure Tfrm_pesq_client.cb_chave_pesquisaChange(Sender: TObject);
@@ -304,10 +316,14 @@ begin
         mk_cep.Visible := false;
         mk_cpf.Visible := false;
       end;
-
-
-
     end
+
+end;
+
+procedure Tfrm_pesq_client.DBGrid1DblClick(Sender: TObject);
+begin
+  inherited;
+  bt_transferir.Click;
 
 end;
 
@@ -315,13 +331,16 @@ procedure Tfrm_pesq_client.ExibeTelaCadastroCliente;
 begin
   frm_clientes := Tfrm_clientes.Create(self);
   Frm_clientes.ShowModal;
+
   try
+
 
   finally
     frm_clientes.Free;
     frm_clientes := nil;
   end;
-end;
+
+  end;
 
 procedure Tfrm_pesq_client.FormActivate(Sender: TObject);
 begin

@@ -5,7 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.ExtCtrls, Vcl.ComCtrls,
-  Vcl.Menus;
+  Vcl.Menus, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Vcl.StdCtrls;
 type
   Tfrm_principal = class(TForm)
     Panel1: TPanel;
@@ -41,6 +44,7 @@ type
     Usurios2: TMenuItem;
     Vendas1: TMenuItem;
     Sobre1: TMenuItem;
+
     procedure Timer1Timer(Sender: TObject);
     procedure SpeedButton10Click(Sender: TObject);
     procedure bt_usuarioClick(Sender: TObject);

@@ -177,6 +177,7 @@ inherited frm_pesq_forne: Tfrm_pesq_forne
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     OnCellClick = DBGrid1CellClick
+    OnDblClick = DBGrid2DblClick
     Columns = <
       item
         Expanded = False

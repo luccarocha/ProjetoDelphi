@@ -4,6 +4,7 @@ inherited frm_pesq_client: Tfrm_pesq_client
   ClientWidth = 1136
   Visible = False
   OnActivate = FormActivate
+  ExplicitLeft = 2
   ExplicitWidth = 1142
   ExplicitHeight = 721
   PixelsPerInch = 96
@@ -26,12 +27,13 @@ inherited frm_pesq_client: Tfrm_pesq_client
         'Todos')
     end
     inherited bt_buscar: TBitBtn
-      Left = 726
+      Left = 806
       OnClick = bt_buscarClick
-      ExplicitLeft = 726
+      ExplicitLeft = 806
     end
-    inherited BitBtn1: TBitBtn
+    inherited bt_transferir: TBitBtn
       Left = 966
+      OnClick = BitBtn1Click
       ExplicitLeft = 966
     end
     inherited BitBtn2: TBitBtn
@@ -39,7 +41,7 @@ inherited frm_pesq_client: Tfrm_pesq_client
       ExplicitLeft = 1045
     end
     object bt_cadastrar: TBitBtn
-      Left = 804
+      Left = 885
       Top = 20
       Width = 75
       Height = 35
@@ -54,7 +56,7 @@ inherited frm_pesq_client: Tfrm_pesq_client
       OnClick = bt_cadastrarClick
     end
     object bt_atualizar: TBitBtn
-      Left = 885
+      Left = 964
       Top = 20
       Width = 75
       Height = 35
@@ -90,6 +92,7 @@ inherited frm_pesq_client: Tfrm_pesq_client
     Width = 1136
     Height = 564
     DataSource = ds_pesq_padrao
+    OnDblClick = DBGrid1DblClick
     Columns = <
       item
         Expanded = False

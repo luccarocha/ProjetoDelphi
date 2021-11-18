@@ -25,6 +25,5 @@ begin
   Application.CreateForm(Tfrm_principal, frm_principal);
   Application.CreateForm(TDM, DM);
   Application.CreateForm(Tfrm_visualizausuario, frm_visualizausuario);
-  Application.CreateForm(Tfrm_pesq_prod, frm_pesq_prod);
   Application.Run;
 end.

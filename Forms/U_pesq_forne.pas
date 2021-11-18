@@ -36,6 +36,8 @@ type
     procedure bt_cadastrarClick(Sender: TObject);
     procedure ExibeTelaCadastroFornecedor();
     procedure bt_buscarClick(Sender: TObject);
+    procedure DBGrid2DblClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -50,6 +52,18 @@ implementation
 {$R *.dfm}
 
 uses U_fornecedor;
+
+procedure Tfrm_pesq_forne.BitBtn1Click(Sender: TObject);
+begin
+  inherited;
+  if Q_pesq_forne.RecordCount > 0 then
+    begin
+      codigo := Q_pesq_forneID_FORNECEDOR.AsInteger;
+    end
+  else
+  abort;
+
+end;
 
 procedure Tfrm_pesq_forne.bt_atualizarClick(Sender: TObject);
 begin
@@ -397,10 +411,14 @@ begin
         mk_cep.Visible := false;
         mk_cpf.Visible := false;
       end;
-
-
     end
 
+end;
+
+procedure Tfrm_pesq_forne.DBGrid2DblClick(Sender: TObject);
+begin
+  inherited;
+  bt_transferir.Click;
 end;
 
 procedure Tfrm_pesq_forne.ExibeTelaCadastroFornecedor;

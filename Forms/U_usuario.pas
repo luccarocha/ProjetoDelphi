@@ -73,12 +73,15 @@ end;
 procedure Tfrm_usuario.bt_pesquisarClick(Sender: TObject);
 begin
   begin
-
     frm_pesq_user := Tfrm_pesq_user.Create(self);
     Frm_pesq_user.ShowModal;
 
     try
-
+      if Frm_pesq_user.codigo > 0 then
+        begin
+          Q_padrao.Open();
+          Q_padrao.Locate('ID_USUARIO',Frm_pesq_user.codigo,[]);
+        end;
     finally
       frm_pesq_user.Free;
       frm_pesq_user := nil;
