@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls;
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls,
+  frxClass, frxDBSet;
 
 type
   Tfrm_pesq_forne = class(Tfrm_pesq_client)
@@ -30,6 +31,7 @@ type
     Q_pesq_forneCNPJ: TStringField;
     Q_pesq_forneEMAIL: TStringField;
     Q_pesq_forneCADASTRO: TDateField;
+    Q_pesq_fornePAIS: TStringField;
     procedure FormActivate(Sender: TObject);
     procedure cb_chave_pesquisaChange(Sender: TObject);
     procedure bt_atualizarClick(Sender: TObject);
@@ -38,6 +40,7 @@ type
     procedure bt_buscarClick(Sender: TObject);
     procedure DBGrid2DblClick(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -65,13 +68,35 @@ begin
 
 end;
 
+procedure Tfrm_pesq_forne.BitBtn2Click(Sender: TObject);
+var caminho: string;
+begin
+  //abre relátório
+   caminho := ExtractFilepath(Application.ExeName);
+   if Frm_pesq_forne.rel_pesq_padrao.LoadFromFile(caminho + 'rel_fornecedor.fr3') then
+      begin
+        rel_pesq_padrao.clear;
+        rel_pesq_padrao.LoadFromFile(ExtractFilepath(Application.ExeName) + 'rel_fornecedor.fr3');
+        rel_pesq_padrao.PrepareReport(true);
+        rel_pesq_padrao.ShowPreparedReport;
+      end
+      else
+      Messagedlg('Relório não localizado!', mtError, [mbOk], 0);
+end;
+
 procedure Tfrm_pesq_forne.bt_atualizarClick(Sender: TObject);
+begin
+  Q_pesq_forne.Refresh;
+  Messagedlg('Registros atualizados!', mtInformation, [mbOk], 0);
+end;
+
+procedure Tfrm_pesq_forne.bt_buscarClick(Sender: TObject);
 begin
   Q_pesq_forne.Close; // fecha
   Q_pesq_forne.SQL.Add(''); // limpa
   Q_pesq_forne.Params.Clear;  //limpa os parametros
   Q_pesq_forne.SQL.Clear;  // limpa o sql
-  Q_pesq_forne.SQL.Add('SELECT ID_FORNECEDOR,NOME,ENDERECO,NUMERO,BAIRRO,CIDADE,UF,TELEFONE,CNPJ,CEP,EMAIL,CADASTRO FROM FORNECEDOR'); // add sql
+  Q_pesq_forne.SQL.Add('SELECT ID_FORNECEDOR,NOME,ENDERECO,NUMERO,BAIRRO,CIDADE,UF,TELEFONE,CNPJ,CEP,EMAIL,CADASTRO,PAIS FROM FORNECEDOR'); // add sql
 
   case cb_chave_pesquisa.ItemIndex of
 
@@ -116,9 +141,10 @@ begin
     end;
 
     8:begin
-      Q_pesq_forne.SQL.Add('WHERE UF LIKE :PPAIS ');
+      Q_pesq_forne.SQL.Add('WHERE PAIS LIKE :PPAIS ');
       Q_pesq_forne.ParamByName('PPAIS').AsString := '%' + ed_nome.Text + '%';
     end;
+
 
     9:begin
       Q_pesq_forne.SQL.Add('WHERE CADASTRO =:PCADASTRO ');
@@ -132,88 +158,6 @@ begin
     end;
 
     11:begin
-       Q_pesq_forne.SQL.Add('ORDER BY ID_FORNECEDOR');
-    end;
-
-
-  end;
-
-  //Q_pesq_forne.SQL.Add('WHERE ID_USUARIO=:PID_USUARIO');
-  //Q_pesq_forne.ParamByName('PID_USUARIO').AsString := ed_nome.Text;
-  Q_pesq_forne.Open;
-
-  if Q_pesq_forne.IsEmpty then
-    begin
-      Messagedlg('Nenhum Registro Encontrado!', MtInformation, [mbOk], 0);
-    end
-    else
-    abort
-
-end;
-
-procedure Tfrm_pesq_forne.bt_buscarClick(Sender: TObject);
-begin
-  Q_pesq_forne.Close; // fecha
-  Q_pesq_forne.SQL.Add(''); // limpa
-  Q_pesq_forne.Params.Clear;  //limpa os parametros
-  Q_pesq_forne.SQL.Clear;  // limpa o sql
-  Q_pesq_forne.SQL.Add('SELECT ID_FORNECEDOR,NOME,ENDERECO,NUMERO,BAIRRO,CIDADE,UF,TELEFONE,CNPJ,CEP,EMAIL,CADASTRO FROM FORNECEDOR'); // add sql
-
-  case cb_chave_pesquisa.ItemIndex of
-
-    0:begin
-      Q_pesq_forne.SQL.Add('WHERE ID_FORNECEDOR =:PID_FORNECEDOR ');
-      Q_pesq_forne.ParamByName('PID_FORNECEDOR').AsString := ed_nome.Text;
-    end;
-
-    1:begin
-      Q_pesq_forne.SQL.Add('WHERE NOME LIKE :PNOME ');
-      Q_pesq_forne.ParamByName('PNOME').AsString := '%' + ed_nome.Text + '%';
-    end;
-
-    2:begin
-      Q_pesq_forne.SQL.Add('WHERE ENDERECO LIKE :PENDERECO ');
-      Q_pesq_forne.ParamByName('PENDERECO').AsString := '%' + ed_nome.Text + '%';
-    end;
-
-    3:begin
-      Q_pesq_forne.SQL.Add('WHERE BAIRRO LIKE :PBAIRRO ');
-      Q_pesq_forne.ParamByName('PBAIRRO').AsString := '%' + ed_nome.Text + '%';
-    end;
-
-    4:begin
-      Q_pesq_forne.SQL.Add('WHERE CIDADE LIKE :PCIDADE ');
-      Q_pesq_forne.ParamByName('PCIDADE').AsString := '%' + ed_nome.Text + '%';
-    end;
-
-    5:begin
-      Q_pesq_forne.SQL.Add('WHERE UF LIKE :PUF ');
-      Q_pesq_forne.ParamByName('PUF').AsString := '%' + ed_nome.Text + '%';
-    end;
-
-    6:begin
-      Q_pesq_forne.SQL.Add('WHERE CEP =:PCEP ');
-      Q_pesq_forne.ParamByName('PCEP').AsString := mk_cep.Text;
-    end;
-
-    7:begin
-      Q_pesq_forne.SQL.Add('WHERE CNPJ =:PCNPJ ');
-      Q_pesq_forne.ParamByName('PCNPJ').AsString := mk_cpf.Text;
-    end;
-
-
-    8:begin
-      Q_pesq_forne.SQL.Add('WHERE CADASTRO =:PCADASTRO ');
-      Q_pesq_forne.ParamByName('PCADASTRO').AsDate := strTodate(mk_inicio.Text);
-    end;
-
-    9:begin
-      Q_pesq_forne.SQL.Add('WHERE CADASTRO BETWEEN :PINICIO AND :PFIM');
-      Q_pesq_forne.ParamByName('PINICiO').AsDate := strTodate(mk_inicio.Text);
-      Q_pesq_forne.ParamByName('PFIM').AsDate := strTodate(mk_fim.Text);
-    end;
-
-    10:begin
        Q_pesq_forne.SQL.Add('ORDER BY ID_FORNECEDOR');
     end;
 
@@ -365,8 +309,23 @@ begin
 
       end;
 
+      8:begin  //UF
+        lb_oppesq.Visible := true;
+        lb_oppesq.Caption := 'Opções de Pesquisa';
+        ed_nome.Visible := true;
+        mk_inicio.Visible := false;
+        mk_fim.Visible := false;
+        lb_inicio.Visible := true;
+        lb_inicio.Caption := 'Digite o País';
+        ed_nome.SetFocus;
+        lb_desc.Visible := false;
+        mk_cep.Visible := false;
+        mk_cpf.Visible := false;
+        ed_nome.Clear;
+      end;
 
-      8:begin  //Data Cadastro
+
+      9:begin  //Data Cadastro
         lb_oppesq.Visible := true;
         lb_oppesq.Caption := 'Opções de Pesquisa';
         ed_nome.Visible := false;
@@ -381,7 +340,7 @@ begin
         mk_inicio.Clear;
       end;
 
-      9:begin  //Periodo
+      10:begin  //Periodo
         lb_oppesq.Visible := true;
         lb_oppesq.Caption := 'Opções de Pesquisa';
         ed_nome.Visible := false;
@@ -398,7 +357,7 @@ begin
         mk_fim.Clear;
       end;
 
-       10:begin
+       11:begin
         lb_oppesq.Visible := true;
         lb_oppesq.Caption := 'Opções de Pesquisa';
         ed_nome.Visible := false;

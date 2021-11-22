@@ -484,7 +484,7 @@ inherited frm_fornecedor: Tfrm_fornecedor
     end
   end
   inherited ds_padrao: TDataSource
-    Left = 376
+    Left = 384
     Top = 104
   end
 end

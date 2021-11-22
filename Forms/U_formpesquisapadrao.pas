@@ -8,7 +8,8 @@ uses
   Vcl.Mask, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, frxClass, frxDBSet,
+  frxExportBaseDialog, frxExportPDF;
 
 type
   Tfrm_pesquisapadrao = class(TForm)
@@ -27,6 +28,9 @@ type
     bt_buscar: TBitBtn;
     bt_transferir: TBitBtn;
     BitBtn2: TBitBtn;
+    ds_rel_pesq_padrao: TfrxDBDataset;
+    rel_pesq_padrao: TfrxReport;
+    frxPDFExport1: TfrxPDFExport;
     procedure cb_chave_pesquisaChange(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure DBGrid1CellClick(Column: TColumn);

@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls;
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls,
+  frxClass, frxDBSet;
 
 type
   Tfrm_pesq_client = class(Tfrm_pesquisapadrao)
@@ -36,6 +37,7 @@ type
     procedure FormActivate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure DBGrid1DblClick(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -61,6 +63,24 @@ begin
     end
   else
   abort;
+
+end;
+
+procedure Tfrm_pesq_client.BitBtn2Click(Sender: TObject);
+  var caminho: string;
+
+begin
+  //abre relátório
+   caminho := ExtractFilepath(Application.ExeName);
+   if Frm_pesq_client.rel_pesq_padrao.LoadFromFile(caminho + 'rel_cliente.fr3') then
+      begin
+        rel_pesq_padrao.clear;
+        rel_pesq_padrao.LoadFromFile(ExtractFilepath(Application.ExeName) + 'rel_cliente.fr3');
+        rel_pesq_padrao.PrepareReport(true);
+        rel_pesq_padrao.ShowPreparedReport;
+      end
+      else
+      Messagedlg('Relório não localizado!', mtError, [mbOk], 0);
 
 end;
 

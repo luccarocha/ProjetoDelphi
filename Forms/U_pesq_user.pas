@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls;
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls,
+  frxClass, frxDBSet;
 
 type
   Tfrm_pesq_user = class(Tfrm_pesquisapadrao)
@@ -25,6 +26,7 @@ type
     procedure bt_atualizarClick(Sender: TObject);
     procedure bt_transferirClick(Sender: TObject);
     procedure DBGrid1DblClick(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -40,6 +42,26 @@ implementation
 {$R *.dfm}
 
 uses U_usuario;
+
+procedure Tfrm_pesq_user.BitBtn2Click(Sender: TObject);
+  var caminho: string;
+begin
+   //abre relátório
+   caminho := ExtractFilepath(Application.ExeName);
+
+   if Frm_pesq_user.rel_pesq_padrao.LoadFromFile(caminho + 'rel_usuario.fr3') then
+
+      begin
+        rel_pesq_padrao.clear;
+        rel_pesq_padrao.LoadFromFile(ExtractFilepath(Application.ExeName) + 'rel_usuario.fr3');
+        rel_pesq_padrao.PrepareReport(true);
+        rel_pesq_padrao.ShowPreparedReport;
+
+      end
+      else
+      Messagedlg('Relório não localizado!', mtError, [mbOk], 0);
+
+end;
 
 procedure Tfrm_pesq_user.bt_atualizarClick(Sender: TObject);
 begin
@@ -59,7 +81,7 @@ begin
   case cb_chave_pesquisa.ItemIndex of
 
     0:begin
-      Q_pesq_padrao.SQL.Add('WHERE A.ID_USUARIO =:PID_USUARIO ');
+      Q_pesq_padrao.SQL.Add('WHERE ID_USUARIO =:PID_USUARIO ');
       Q_pesq_padrao.ParamByName('PID_USUARIO').AsString := ed_nome.Text;
     end;
 

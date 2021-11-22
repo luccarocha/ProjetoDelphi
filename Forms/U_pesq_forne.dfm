@@ -13,6 +13,7 @@ inherited frm_pesq_forne: Tfrm_pesq_forne
         'UF'
         'CEP'
         'CNPJ'
+        'Pais'
         'Data de Cadastro'
         'Per'#237'odo'
         'Todos')
@@ -326,10 +327,8 @@ inherited frm_pesq_forne: Tfrm_pesq_forne
       end>
   end
   inherited q_pesq_padrao: TFDQuery
-    SQL.Strings = (
-      'select id_fornecedor, nome, endereco, numero, bairro,'
-      'cidade, uf, cep, telefone, cnpj, email, cadastro, pais'
-      'from fornecedor order by nome')
+    Active = False
+    SQL.Strings = ()
     Left = 760
     Top = 640
     object q_pesq_padraoID_FORNECEDOR: TIntegerField
@@ -355,19 +354,100 @@ inherited frm_pesq_forne: Tfrm_pesq_forne
     Left = 664
     Top = 640
   end
+  inherited ds_rel_pesq_padrao: TfrxDBDataset
+    UserName = 'frx_fornecedor'
+    DataSet = Q_pesq_forne
+  end
+  inherited rel_pesq_padrao: TfrxReport
+    ReportOptions.LastChange = 44522.350960763890000000
+    Datasets = <
+      item
+        DataSet = ds_rel_pesq_padrao
+        DataSetName = 'frx_fornecedor'
+      end>
+    Variables = <>
+    Style = <>
+    inherited Page1: TfrxReportPage
+      inherited Titulo: TfrxReportTitle
+        inherited Memo1: TfrxMemoView
+          Memo.UTF8W = (
+            'RELAT'#211'RIO DE FORNECEDORES')
+        end
+      end
+      inherited MasterData1: TfrxMasterData
+        DataSetName = 'frx_fornecedor'
+        inherited frxDBDataset1ID_CLIENTE: TfrxMemoView
+          DataField = ''
+          DataSetName = 'frx_fornecedor'
+          Memo.UTF8W = (
+            '[frx_fornecedor."ID_FORNECEDOR"]')
+        end
+        inherited frxDBDataset1NOME: TfrxMemoView
+          Width = 147.401670000000000000
+          DataField = ''
+          DataSetName = 'frx_fornecedor'
+          Memo.UTF8W = (
+            '[frx_fornecedor."NOME"]')
+        end
+        inherited frxDBDataset1TELEFONE: TfrxMemoView
+          Left = 226.771800000000000000
+          Width = 154.960730000000000000
+          DataField = ''
+          DataSetName = 'frx_fornecedor'
+          Memo.UTF8W = (
+            '[frx_fornecedor."EMAIL"]')
+        end
+        inherited frxDBDataset1CADASTRO: TfrxMemoView
+          DataField = ''
+          DataSetName = 'frx_fornecedor'
+          Memo.UTF8W = (
+            '[frx_fornecedor."CADASTRO"]')
+        end
+        inherited frxDBDataset1CIDADE: TfrxMemoView
+          Left = 381.732530000000000000
+          Top = 0.000000000000000000
+          Width = 109.606370000000000000
+          DataField = ''
+          DataSetName = 'frx_fornecedor'
+          Memo.UTF8W = (
+            '[frx_fornecedor."PAIS"]')
+        end
+      end
+      inherited PageHeader1: TfrxPageHeader
+        inherited Memo3: TfrxMemoView
+          Width = 147.401670000000000000
+          Memo.UTF8W = (
+            'DESCRI'#199#195'O')
+        end
+        inherited Memo4: TfrxMemoView
+          Left = 226.771800000000000000
+          Width = 154.960730000000000000
+          Memo.UTF8W = (
+            'EMAIL')
+        end
+        inherited Memo6: TfrxMemoView
+          Left = 381.732530000000000000
+          Width = 109.606370000000000000
+          Memo.UTF8W = (
+            'PA'#205'S')
+        end
+      end
+    end
+  end
   object ds_pesq_forne: TDataSource
     DataSet = Q_pesq_forne
     Left = 296
     Top = 640
   end
   object Q_pesq_forne: TFDQuery
+    Active = True
     Connection = DM.Conexao
     SQL.Strings = (
       'select id_fornecedor, nome, endereco, numero, bairro,'
       'cidade, uf, cep, telefone, cnpj, email, cadastro, pais'
       'from fornecedor order by nome')
     Left = 376
-    Top = 648
+    Top = 640
     object Q_pesq_forneID_FORNECEDOR: TIntegerField
       FieldName = 'ID_FORNECEDOR'
       Origin = 'ID_FORNECEDOR'
@@ -437,6 +517,13 @@ inherited frm_pesq_forne: Tfrm_pesq_forne
       FieldName = 'CADASTRO'
       Origin = 'CADASTRO'
       Required = True
+    end
+    object Q_pesq_fornePAIS: TStringField
+      FieldName = 'PAIS'
+      Origin = 'PAIS'
+      Required = True
+      FixedChar = True
+      Size = 50
     end
   end
 end

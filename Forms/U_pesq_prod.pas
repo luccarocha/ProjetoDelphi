@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls;
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls,
+  frxClass, frxDBSet;
 
 type
   Tfrm_pesq_prod = class(Tfrm_pesquisapadrao)
@@ -29,6 +30,7 @@ type
     procedure ExibeTelaCadastroUsuario();
     procedure bt_transferirClick(Sender: TObject);
     procedure DBGrid1DblClick(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -44,6 +46,24 @@ implementation
 {$R *.dfm}
 
 uses U_produto;
+
+procedure Tfrm_pesq_prod.BitBtn2Click(Sender: TObject);
+var caminho: string;
+
+begin
+  //abre relátório
+   caminho := ExtractFilepath(Application.ExeName);
+   if Frm_pesq_prod.rel_pesq_padrao.LoadFromFile(caminho + 'rel_produto.fr3') then
+      begin
+        rel_pesq_padrao.clear;
+        rel_pesq_padrao.LoadFromFile(ExtractFilepath(Application.ExeName) + 'rel_produto.fr3');
+        rel_pesq_padrao.PrepareReport(true);
+        rel_pesq_padrao.ShowPreparedReport;
+      end
+      else
+      Messagedlg('Relório não localizado!', mtError, [mbOk], 0);
+
+end;
 
 procedure Tfrm_pesq_prod.bt_buscarClick(Sender: TObject);
 begin
