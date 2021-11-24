@@ -15,7 +15,9 @@ uses
   U_visualizauser in '..\Forms\U_visualizauser.pas' {frm_visualizausuario},
   U_pesq_client in '..\Forms\U_pesq_client.pas' {frm_pesq_client},
   U_pesq_forne in '..\Forms\U_pesq_forne.pas' {frm_pesq_forne},
-  U_pesq_prod in '..\Forms\U_pesq_prod.pas' {frm_pesq_prod};
+  U_pesq_prod in '..\Forms\U_pesq_prod.pas' {frm_pesq_prod},
+  U_movimentopadrao in '..\Forms\U_movimentopadrao.pas' {frm_padraomovimento},
+  U_compras in '..\Forms\U_compras.pas' {frm_compras};
 
 {$R *.res}
 

@@ -62,6 +62,7 @@ type
     procedure ExibeTelaVisualizaCliente();
     procedure ExibeTelaVisualizaFornecedor();
     procedure ExibeTelaVisualizaProduto();
+    procedure ExibeTelaCadastroCompras();
 
 
     //
@@ -69,6 +70,7 @@ type
     procedure SpeedButton5Click(Sender: TObject);
     procedure Parceiros2Click(Sender: TObject);
     procedure Fornecedores2Click(Sender: TObject);
+    procedure SpeedButton7Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -84,7 +86,7 @@ implementation
 {$R *.dfm}
 
 uses U_usuario, U_clientes, U_fornecedor, U_produto, U_formaspgto, U_pesq_user,
-  U_pesq_client, U_pesq_forne, U_pesq_prod;
+  U_pesq_client, U_pesq_forne, U_pesq_prod, U_compras;
 
 procedure Tfrm_principal.Compras1Click(Sender: TObject);
 begin
@@ -138,6 +140,20 @@ begin
     frm_clientes.Free;
     frm_clientes := nil;
   end;
+end;
+
+procedure Tfrm_principal.ExibeTelaCadastroCompras;
+begin
+
+  frm_compras := Tfrm_compras.Create(self);
+  Frm_compras.ShowModal;
+  try
+
+  finally
+    frm_compras.Free;
+    frm_compras := nil;
+  end;
+
 end;
 
 procedure Tfrm_principal.ExibeTelaCadastroUsuario;
@@ -248,6 +264,11 @@ end;
 procedure Tfrm_principal.SpeedButton5Click(Sender: TObject);
 begin
    ExibeTelaVisualizaProduto;
+end;
+
+procedure Tfrm_principal.SpeedButton7Click(Sender: TObject);
+begin
+  ExibeTelaCadastroCompras;
 end;
 
 procedure Tfrm_principal.bt_usuarioClick(Sender: TObject);

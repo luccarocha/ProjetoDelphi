@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls,
-  frxClass, frxDBSet;
+  frxClass, frxDBSet, frxExportBaseDialog, frxExportPDF;
 
 type
   Tfrm_pesq_prod = class(Tfrm_pesquisapadrao)
@@ -107,7 +107,7 @@ begin
     end;
 
     4:begin
-      Q_pesq_padrao.SQL.Add('WHERE A A.CADASTRO BETWEEN :PINICIO AND :PFIM');
+      Q_pesq_padrao.SQL.Add('WHERE A.CADASTRO BETWEEN :PINICIO AND :PFIM');
       Q_pesq_padrao.ParamByName('PINICiO').AsDate := strTodate(mk_inicio.Text);
       Q_pesq_padrao.ParamByName('PFIM').AsDate := strTodate(mk_fim.Text);
     end;

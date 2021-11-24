@@ -434,6 +434,10 @@ inherited frm_pesq_forne: Tfrm_pesq_forne
       end
     end
   end
+  inherited frxPDFExport1: TfrxPDFExport
+    Left = 848
+    Top = 176
+  end
   object ds_pesq_forne: TDataSource
     DataSet = Q_pesq_forne
     Left = 296

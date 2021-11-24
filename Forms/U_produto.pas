@@ -36,10 +36,14 @@ type
     db_estoque: TDBEdit;
     Label7: TLabel;
     db_estoque_min: TDBEdit;
-    Label8: TLabel;
     db_id_fornecedor: TDBEdit;
     Label9: TLabel;
-    DBEdit1: TDBEdit;
+    Q_forne: TFDQuery;
+    Q_forneID_FORNECEDOR: TIntegerField;
+    Q_forneNOME: TStringField;
+    ds_fornecedor: TDataSource;
+    Q_padraoNOMEFORNE: TStringField;
+    DBLookupComboBox1: TDBLookupComboBox;
     procedure bt_novoClick(Sender: TObject);
     procedure bt_pesquisarClick(Sender: TObject);
     procedure ExibeTelaVisualizaProduto();
