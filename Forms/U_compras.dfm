@@ -15,64 +15,69 @@ inherited frm_compras: Tfrm_compras
     ExplicitTop = 168
   end
   inherited painel0: TPanel
-    Top = 487
+    Top = 482
     Width = 946
-    Height = 60
     Align = alBottom
     BorderStyle = bsSingle
-    ExplicitTop = 492
+    ExplicitTop = 482
     ExplicitWidth = 946
-    ExplicitHeight = 60
     inherited SpeedButton10: TSpeedButton
       Width = 0
       ExplicitWidth = 0
     end
     inherited bt_pesquisar: TBitBtn
-      Left = 605
-      Top = 6
-      ExplicitLeft = 605
-      ExplicitTop = 6
+      Left = 718
+      Top = 8
+      OnClick = bt_pesquisarClick
+      ExplicitLeft = 718
+      ExplicitTop = 8
     end
     inherited bt_atualizar: TBitBtn
-      Left = 489
-      Top = 6
-      ExplicitLeft = 489
-      ExplicitTop = 6
+      Left = 601
+      Top = 8
+      Visible = False
+      ExplicitLeft = 601
+      ExplicitTop = 8
     end
     inherited BitBtn1: TBitBtn
-      Left = 721
-      Top = 6
-      ExplicitLeft = 721
-      ExplicitTop = 6
+      Left = 838
+      Top = 8
+      ExplicitLeft = 838
+      ExplicitTop = 8
     end
     inherited bt_new: TBitBtn
-      Top = 6
-      ExplicitTop = 6
+      Left = 9
+      Top = 8
+      ExplicitLeft = 9
+      ExplicitTop = 8
     end
     inherited bt_excluir: TBitBtn
-      Left = 372
-      Top = 6
+      Left = 482
+      Top = 8
       Enabled = False
-      ExplicitLeft = 372
-      ExplicitTop = 6
+      Visible = False
+      ExplicitLeft = 482
+      ExplicitTop = 8
     end
     inherited bt_edit: TBitBtn
-      Left = 256
-      Top = 6
+      Left = 364
+      Top = 8
       Enabled = False
+      Visible = False
       OnClick = bt_editClick
-      ExplicitLeft = 256
-      ExplicitTop = 6
+      ExplicitLeft = 364
+      ExplicitTop = 8
     end
     inherited bt_save: TBitBtn
-      Left = 140
-      Top = 6
-      ExplicitLeft = 140
-      ExplicitTop = 6
+      Left = 127
+      Top = 8
+      Visible = False
+      ExplicitLeft = 127
+      ExplicitTop = 8
     end
     object bt_itens: TBitBtn
-      Left = 838
-      Top = 4
+      Left = 245
+      Top = 8
       Width = 90
       Height = 45
       Caption = '&Itens'
@@ -84,57 +89,60 @@ inherited frm_compras: Tfrm_compras
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 7
+      Visible = False
       OnClick = bt_itensClick
     end
   end
   inherited Panel1: TPanel
-    Top = 314
+    Top = 311
     Width = 946
-    Height = 67
+    Height = 65
     BorderStyle = bsSingle
     Visible = False
-    ExplicitTop = 320
+    ExplicitTop = 311
     ExplicitWidth = 946
-    ExplicitHeight = 67
+    ExplicitHeight = 65
     inherited DBNavigator1: TDBNavigator
-      Left = 519
-      Top = 11
+      Left = 854
+      Top = 34
       Width = 80
       Height = 45
       Hints.Strings = ()
-      ExplicitLeft = 519
-      ExplicitTop = 11
+      ExplicitLeft = 854
+      ExplicitTop = 34
       ExplicitWidth = 80
       ExplicitHeight = 45
     end
     inherited bt_confirmar: TBitBtn
-      Left = 108
-      Top = 14
+      Left = 242
+      Top = 10
+      Caption = '&Finalizar'
+      Enabled = False
       OnClick = bt_confirmarClick
-      ExplicitLeft = 108
-      ExplicitTop = 14
+      ExplicitLeft = 242
+      ExplicitTop = 10
     end
     inherited bt_item: TBitBtn
-      Left = 12
-      Top = 13
-      Caption = '&Iserir Item'
+      Left = 10
+      Top = 10
+      Caption = '&Inserir Item'
       OnClick = bt_itemClick
-      ExplicitLeft = 12
-      ExplicitTop = 13
+      ExplicitLeft = 10
+      ExplicitTop = 10
     end
     inherited bt_del: TBitBtn
-      Left = 742
-      Top = 14
+      Left = 126
+      Top = 10
       Caption = '&Remover'
       OnClick = bt_delClick
-      ExplicitLeft = 742
-      ExplicitTop = 14
+      ExplicitLeft = 126
+      ExplicitTop = 10
     end
     inherited bt_imprimir: TBitBtn
-      Left = 838
-      Top = 14
-      ExplicitLeft = 838
-      ExplicitTop = 14
+      Left = 358
+      Top = 10
+      ExplicitLeft = 358
+      ExplicitTop = 10
     end
   end
   inherited Panel2: TPanel
@@ -144,12 +152,12 @@ inherited frm_compras: Tfrm_compras
     ExplicitTop = 156
   end
   inherited Panel3: TPanel
-    Top = 381
+    Top = 376
     Width = 946
     Height = 106
     Align = alBottom
     BorderStyle = bsSingle
-    ExplicitTop = 502
+    ExplicitTop = 376
     ExplicitWidth = 946
     ExplicitHeight = 106
     object Label1: TLabel
@@ -167,7 +175,7 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 626
+      Left = 488
       Top = 51
       Width = 72
       Height = 13
@@ -181,7 +189,7 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label3: TLabel
-      Left = 790
+      Left = 652
       Top = 51
       Width = 73
       Height = 13
@@ -223,8 +231,8 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 475
-      Top = 51
+      Left = 818
+      Top = 52
       Width = 37
       Height = 13
       Caption = 'VALOR'
@@ -235,6 +243,7 @@ inherited frm_compras: Tfrm_compras
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      Visible = False
     end
     object Label12: TLabel
       Left = 9
@@ -307,8 +316,8 @@ inherited frm_compras: Tfrm_compras
       DataSource = ds_padrao
       TabOrder = 3
     end
-    object DBLookupComboBox1: TDBLookupComboBox
-      Left = 626
+    object cb_fornecedor: TDBLookupComboBox
+      Left = 488
       Top = 70
       Width = 133
       Height = 21
@@ -317,28 +326,31 @@ inherited frm_compras: Tfrm_compras
       TabOrder = 4
     end
     object DBLookupComboBox2: TDBLookupComboBox
-      Left = 790
+      Left = 652
       Top = 70
       Width = 136
       Height = 21
       DataField = 'DESCRICAO'
       DataSource = ds_padrao
       TabOrder = 5
+      OnClick = DBLookupComboBox2Click
     end
     object db_subtotal: TDBEdit
-      Left = 475
-      Top = 70
+      Left = 818
+      Top = 71
       Width = 110
       Height = 21
       DataField = 'VALOR'
       DataSource = ds_padrao
+      Enabled = False
       TabOrder = 8
+      Visible = False
     end
   end
   inherited DBGrid1: TDBGrid
-    Top = 131
+    Top = 138
     Width = 946
-    Height = 77
+    Height = 68
     DataSource = ds_padraoitem
     ParentFont = False
     TitleFont.Style = [fsBold]
@@ -362,7 +374,7 @@ inherited frm_compras: Tfrm_compras
         Expanded = False
         FieldName = 'DESCRICAO'
         Title.Caption = 'DESCRI'#199#195'O'
-        Width = 288
+        Width = 267
         Visible = True
       end
       item
@@ -396,15 +408,15 @@ inherited frm_compras: Tfrm_compras
         Expanded = False
         FieldName = 'ID_COMPRA'
         Title.Caption = 'C'#211'D. COMPRA'
-        Width = 100
+        Width = 115
         Visible = True
       end>
   end
   object Panel4: TPanel [6]
     Left = 0
-    Top = 208
+    Top = 206
     Width = 946
-    Height = 106
+    Height = 105
     Align = alBottom
     BorderStyle = bsSingle
     Color = clGradientInactiveCaption
@@ -417,8 +429,6 @@ inherited frm_compras: Tfrm_compras
     ParentFont = False
     TabOrder = 5
     Visible = False
-    ExplicitLeft = 8
-    ExplicitTop = 235
     object Label7: TLabel
       Left = 9
       Top = 48
@@ -549,6 +559,7 @@ inherited frm_compras: Tfrm_compras
       DataField = 'TOTAL_ITEM'
       DataSource = ds_padraoitem
       TabOrder = 4
+      OnChange = db_vl_itemChange
     end
   end
   object Panel5: TPanel [7]
@@ -562,8 +573,6 @@ inherited frm_compras: Tfrm_compras
     ParentBackground = False
     TabOrder = 6
     Visible = False
-    ExplicitLeft = 8
-    ExplicitTop = 111
     object Label13: TLabel
       Left = 12
       Top = 16
@@ -749,7 +758,7 @@ inherited frm_compras: Tfrm_compras
     Left = 0
     Top = 73
     Width = 946
-    Height = 58
+    Height = 65
     Align = alTop
     BorderStyle = bsSingle
     Color = clGradientActiveCaption
@@ -758,7 +767,7 @@ inherited frm_compras: Tfrm_compras
     Visible = False
     object DBNavigator2: TDBNavigator
       Left = 680
-      Top = 4
+      Top = 10
       Width = 248
       Height = 45
       DataSource = ds_padrao
@@ -766,12 +775,11 @@ inherited frm_compras: Tfrm_compras
       TabOrder = 0
     end
     object bt_save2: TBitBtn
-      Left = 15
-      Top = 4
+      Left = 12
+      Top = 10
       Width = 90
       Height = 45
       Caption = '&Salvar'
-      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -780,6 +788,21 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
       TabOrder = 1
       OnClick = bt_save2Click
+    end
+    object BitBtn2: TBitBtn
+      Left = 126
+      Top = 10
+      Width = 90
+      Height = 45
+      Caption = '&Excluir'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = bt_excluirClick
     end
   end
   inherited Q_padrao: TFDQuery
@@ -791,8 +814,8 @@ inherited frm_compras: Tfrm_compras
       
         'select id_compra, id_fornecedor,id_forma_pgto, usuario, valor, c' +
         'adastro from  compra')
-    Left = 136
-    Top = 80
+    Left = 144
+    Top = 144
     object Q_padraoID_COMPRA: TFDAutoIncField
       FieldName = 'ID_COMPRA'
       Origin = 'ID_COMPRA'
@@ -849,8 +872,8 @@ inherited frm_compras: Tfrm_compras
     end
   end
   inherited ds_padrao: TDataSource
-    Left = 192
-    Top = 80
+    Left = 200
+    Top = 144
   end
   inherited Q_padraoitem: TFDQuery
     IndexFieldNames = 'ID_COMPRA'
@@ -864,7 +887,6 @@ inherited frm_compras: Tfrm_compras
         'ONTO, TOTAL_ITEM FROM ITEM_COMPRA'
       'WHERE ID_COMPRA=:ID_COMPRA')
     Left = 640
-    Top = 97
     ParamData = <
       item
         Name = 'ID_COMPRA'
@@ -938,8 +960,8 @@ inherited frm_compras: Tfrm_compras
     end
   end
   inherited ds_padraoitem: TDataSource
-    Left = 704
-    Top = 89
+    Left = 720
+    Top = 153
   end
   object Q_forne: TFDQuery
     MasterSource = ds_padrao
@@ -948,8 +970,8 @@ inherited frm_compras: Tfrm_compras
       
         'select id_fornecedor, nome from fornecedor order by  id_forneced' +
         'or')
-    Left = 504
-    Top = 81
+    Left = 488
+    Top = 145
     object Q_forneID_FORNECEDOR: TIntegerField
       FieldName = 'ID_FORNECEDOR'
       Origin = 'ID_FORNECEDOR'
@@ -966,7 +988,7 @@ inherited frm_compras: Tfrm_compras
   object ds_fornecedor: TDataSource
     DataSet = Q_forne
     Left = 552
-    Top = 89
+    Top = 145
   end
   object Q_formapgto: TFDQuery
     MasterSource = ds_padrao
@@ -975,8 +997,8 @@ inherited frm_compras: Tfrm_compras
       
         'select id_forma_pgto, descricao from forma_pgto order by id_form' +
         'a_pgto')
-    Left = 288
-    Top = 81
+    Left = 272
+    Top = 145
     object Q_formapgtoID_FORMA_PGTO: TIntegerField
       FieldName = 'ID_FORMA_PGTO'
       Origin = 'ID_FORMA_PGTO'
@@ -992,8 +1014,8 @@ inherited frm_compras: Tfrm_compras
   end
   object ds_formapgto: TDataSource
     DataSet = Q_formapgto
-    Left = 360
-    Top = 81
+    Left = 336
+    Top = 145
   end
   object Q_produtos: TFDQuery
     Connection = DM.Conexao
@@ -1001,7 +1023,7 @@ inherited frm_compras: Tfrm_compras
       
         'select id_produto, produto_descricao, estoque, estoque_min, vl_c' +
         'usto from produto order by id_produto')
-    Left = 768
-    Top = 88
+    Left = 784
+    Top = 160
   end
 end

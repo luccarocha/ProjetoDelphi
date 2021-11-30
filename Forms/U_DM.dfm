@@ -13,6 +13,9 @@ object DM: TDM
       'Server=localhost'
       'Port=3050'
       'DriverID=FB')
+    FetchOptions.AssignedValues = [evUnidirectional]
+    FormatOptions.AssignedValues = [fvStrsTrim, fvSortOptions]
+    Connected = True
     LoginPrompt = False
     Left = 24
     Top = 24

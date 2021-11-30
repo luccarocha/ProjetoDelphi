@@ -14,15 +14,15 @@ uses
 type
   Tfrm_pesq_prod = class(Tfrm_pesquisapadrao)
     bt_atualizar: TBitBtn;
-    bt_cadastrar: TBitBtn;
     q_pesq_padraoID_PRODUTO: TIntegerField;
     q_pesq_padraoPRODUTO_DESCRICAO: TStringField;
     q_pesq_padraoVL_CUSTO: TFMTBCDField;
     q_pesq_padraoVL_VENDA: TFMTBCDField;
-    q_pesq_padraoESTOQUE: TFMTBCDField;
     q_pesq_padraoESTOQUE_MIN: TFMTBCDField;
     q_pesq_padraoCADASTRO: TDateField;
     q_pesq_padraoNOME: TStringField;
+    q_pesq_padraoESTOQUE: TIntegerField;
+    q_pesq_padraoID_FORNECEDOR: TIntegerField;
     procedure cb_chave_pesquisaChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure bt_buscarClick(Sender: TObject);

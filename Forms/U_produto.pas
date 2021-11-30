@@ -16,7 +16,6 @@ type
     Q_padraoPRODUTO_DESCRICAO: TStringField;
     Q_padraoVL_CUSTO: TFMTBCDField;
     Q_padraoVL_VENDA: TFMTBCDField;
-    Q_padraoESTOQUE: TFMTBCDField;
     Q_padraoESTOQUE_MIN: TFMTBCDField;
     Q_padraoUNIDADE: TStringField;
     Q_padraoCADASTRO: TDateField;
@@ -44,9 +43,12 @@ type
     ds_fornecedor: TDataSource;
     Q_padraoNOMEFORNE: TStringField;
     DBLookupComboBox1: TDBLookupComboBox;
+    Q_padraoESTOQUE: TIntegerField;
     procedure bt_novoClick(Sender: TObject);
     procedure bt_pesquisarClick(Sender: TObject);
     procedure ExibeTelaVisualizaProduto();
+    procedure bt_gravarClick(Sender: TObject);
+    procedure bt_deletarClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -61,7 +63,22 @@ implementation
 
 {$R *.dfm}
 
-uses U_pesq_prod;
+uses U_pesq_prod, U_Principal;
+
+procedure Tfrm_produto.bt_deletarClick(Sender: TObject);
+begin
+  inherited;
+  frm_principal.Q_estoque.Refresh;
+
+end;
+
+procedure Tfrm_produto.bt_gravarClick(Sender: TObject);
+begin
+  inherited;
+  frm_principal.Q_estoque.Refresh;
+
+
+end;
 
 procedure Tfrm_produto.bt_novoClick(Sender: TObject);
 begin

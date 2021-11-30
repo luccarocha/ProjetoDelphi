@@ -8,19 +8,9 @@ uses
   Vcl.Menus, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, Vcl.StdCtrls;
+  FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.DBCtrls;
 type
   Tfrm_principal = class(TForm)
-    Panel1: TPanel;
-    bt_usuario: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
-    SpeedButton5: TSpeedButton;
-    SpeedButton6: TSpeedButton;
-    SpeedButton7: TSpeedButton;
-    SpeedButton8: TSpeedButton;
-    SpeedButton9: TSpeedButton;
-    SpeedButton10: TSpeedButton;
     StatusBar1: TStatusBar;
     Timer1: TTimer;
     MainMenu1: TMainMenu;
@@ -44,6 +34,58 @@ type
     Usurios2: TMenuItem;
     Vendas1: TMenuItem;
     Sobre1: TMenuItem;
+    Sair1: TMenuItem;
+    rocarUsurio1: TMenuItem;
+    Fechar1: TMenuItem;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    Panel8: TPanel;
+    Q_padraoitem: TFDQuery;
+    ds_padraoitem: TDataSource;
+    DBGrid1: TDBGrid;
+    Q_padraoitemID_COMPRA: TIntegerField;
+    Q_padraoitemCADASTRO: TDateField;
+    Q_padraoitemID_PRODUTO: TIntegerField;
+    Q_padraoitemPRODUTO_DESCRICAO: TStringField;
+    Q_padraoitemQTDE: TFMTBCDField;
+    Q_padraoitemVL_CUSTO: TFMTBCDField;
+    Q_padraoitemDESCONTO: TFMTBCDField;
+    Q_padraoitemTOTAL_ITEM: TFMTBCDField;
+    Panel9: TPanel;
+    Q_padraoitemVALORTOTAL: TAggregateField;
+    Q_padraoitemQNTDTOTAL: TAggregateField;
+    Label1: TLabel;
+    DBText1: TDBText;
+    DBText2: TDBText;
+    Label2: TLabel;
+    Q_estoque: TFDQuery;
+    ds_estoque: TDataSource;
+    DBGrid2: TDBGrid;
+    Panel10: TPanel;
+    Label3: TLabel;
+    Panel11: TPanel;
+    Label5: TLabel;
+    DBText5: TDBText;
+    DBText6: TDBText;
+    Label6: TLabel;
+    DBText3: TDBText;
+    Q_estoqueID_PRODUTO: TIntegerField;
+    Q_estoquePRODUTO_DESCRICAO: TStringField;
+    Q_estoqueVL_CUSTO: TFMTBCDField;
+    Q_estoqueVL_VENDA: TFMTBCDField;
+    Q_estoqueQTDTOTAL: TAggregateField;
+    Panel12: TPanel;
+    Label4: TLabel;
+    DBText4: TDBText;
+    DBText7: TDBText;
+    Label7: TLabel;
+    Q_estoqueESTOQUE: TIntegerField;
+    Q_estoqueCADASTRO: TDateField;
 
     procedure Timer1Timer(Sender: TObject);
     procedure SpeedButton10Click(Sender: TObject);
@@ -52,7 +94,7 @@ type
     procedure Compras1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure Usurios1Click(Sender: TObject);
-    //Funcoes Exibe tela
+
     procedure ExibeTelaCadastroUsuario();
     procedure ExibeTelaCadastroCliente();
     procedure ExibeTelaCadastroFornecedor();
@@ -64,18 +106,19 @@ type
     procedure ExibeTelaVisualizaProduto();
     procedure ExibeTelaCadastroCompras();
 
-
-    //
     procedure Fornecedores1Click(Sender: TObject);
     procedure SpeedButton5Click(Sender: TObject);
     procedure Parceiros2Click(Sender: TObject);
     procedure Fornecedores2Click(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
+    procedure Compras3Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
 
-  private
+   private
     { Private declarations }
   public
     { Public declarations }
+
   end;
 
 var
@@ -91,6 +134,11 @@ uses U_usuario, U_clientes, U_fornecedor, U_produto, U_formaspgto, U_pesq_user,
 procedure Tfrm_principal.Compras1Click(Sender: TObject);
 begin
   ExibeTelaCadastroCliente;
+end;
+
+procedure Tfrm_principal.Compras3Click(Sender: TObject);
+begin
+  ExibeTelaCadastroCompras;
 end;
 
 procedure Tfrm_principal.ExibeTelaCadastroFornecedor;
@@ -223,6 +271,43 @@ procedure Tfrm_principal.ExibeTeleaVisualizaUsuario;
       frm_pesq_user.Free;
       frm_pesq_user := nil;
     end;
+
+end;
+
+procedure Tfrm_principal.FormActivate(Sender: TObject);
+begin
+  Q_padraoitem.Close; // fecha
+  Q_padraoitem.SQL.Add(''); // limpa
+  Q_padraoitem.Params.Clear;  //limpa os parametros
+  Q_padraoitem.SQL.Clear;  // limpa o sql
+  Q_padraoitem.SQL.Add(' SELECT A.ID_COMPRA, '
+                        + 'C.CADASTRO, '
+                        + 'A.ID_PRODUTO,'
+                        + 'B.PRODUTO_DESCRICAO, '
+                        + 'A.QTDE,'
+                        + 'A.VL_CUSTO,'
+                        + 'A.DESCONTO,'
+                        + 'A.TOTAL_ITEM FROM ITEM_COMPRA A '
+                        + 'INNER JOIN PRODUTO B  ON A.ID_PRODUTO = B.ID_PRODUTO '
+                        + 'INNER JOIN COMPRA C ON A.ID_COMPRA = C.ID_COMPRA '
+                        + 'WHERE EXTRACT(MONTH FROM C.CADASTRO) = '
+                        + 'EXTRACT(MONTH FROM CAST (CURRENT_DATE AS DATE)) '
+                        + 'AND EXTRACT(YEAR FROM C.CADASTRO) =  '
+                        + 'EXTRACT(YEAR FROM CAST (CURRENT_DATE AS DATE)) ORDER BY C.CADASTRO');
+
+  Q_padraoitem.Open;
+
+
+  Q_estoque.Close; // fecha
+  Q_estoque.SQL.Add(''); // limpa
+  Q_estoque.Params.Clear;  //limpa os parametros
+  Q_estoque.SQL.Clear;  // limpa o sql
+  Q_estoque.SQL.Add(' SELECT ID_PRODUTO, PRODUTO_DESCRICAO, ESTOQUE, '
+                           + ' VL_CUSTO, VL_VENDA, CADASTRO FROM PRODUTO '
+                          + 'WHERE (ESTOQUE > 0)  '
+                          + 'ORDER BY  ESTOQUE DESC');
+
+  Q_estoque.Open;
 
 end;
 

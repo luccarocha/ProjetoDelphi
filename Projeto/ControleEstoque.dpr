@@ -17,7 +17,8 @@ uses
   U_pesq_forne in '..\Forms\U_pesq_forne.pas' {frm_pesq_forne},
   U_pesq_prod in '..\Forms\U_pesq_prod.pas' {frm_pesq_prod},
   U_movimentopadrao in '..\Forms\U_movimentopadrao.pas' {frm_padraomovimento},
-  U_compras in '..\Forms\U_compras.pas' {frm_compras};
+  U_compras in '..\Forms\U_compras.pas' {frm_compras},
+  U_pesq_compra in '..\Forms\U_pesq_compra.pas' {frm_pesquisacompra};
 
 {$R *.res}
 
@@ -27,5 +28,6 @@ begin
   Application.CreateForm(Tfrm_principal, frm_principal);
   Application.CreateForm(TDM, DM);
   Application.CreateForm(Tfrm_visualizausuario, frm_visualizausuario);
+  Application.CreateForm(Tfrm_pesquisacompra, frm_pesquisacompra);
   Application.Run;
 end.

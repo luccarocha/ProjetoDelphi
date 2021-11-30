@@ -39,7 +39,7 @@ type
     Q_forneNOME: TStringField;
     Q_formapgtoID_FORMA_PGTO: TIntegerField;
     Q_formapgtoDESCRICAO: TStringField;
-    DBLookupComboBox1: TDBLookupComboBox;
+    cb_fornecedor: TDBLookupComboBox;
     DBLookupComboBox2: TDBLookupComboBox;
     Q_padraoNOME: TStringField;
     Q_padraoDESCRICAO: TStringField;
@@ -84,6 +84,7 @@ type
     DBNavigator2: TDBNavigator;
     bt_save2: TBitBtn;
     bt_itens: TBitBtn;
+    BitBtn2: TBitBtn;
     procedure bt_newClick(Sender: TObject);
     procedure bt_itemClick(Sender: TObject);
     procedure db_codprodExit(Sender: TObject);
@@ -95,10 +96,18 @@ type
     procedure bt_editClick(Sender: TObject);
     procedure bt_save2Click(Sender: TObject);
     procedure bt_itensClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure bt_excluirClick(Sender: TObject);
+    procedure bt_pesquisarClick(Sender: TObject);
+    procedure DBLookupComboBox2Click(Sender: TObject);
+    procedure db_vl_itemChange(Sender: TObject);
+
+
   private
     { Private declarations }
   public
     { Public declarations }
+
   end;
 
 var
@@ -108,7 +117,20 @@ implementation
 
 {$R *.dfm}
 
-uses U_DM;
+uses U_DM, U_pesq_compra, U_Principal;
+
+procedure Tfrm_compras.BitBtn1Click(Sender: TObject);
+begin
+  botoes;
+  Q_padrao.Cancel;
+  Messagedlg('Ação cancelada pelo usuário!', mtInformation, [mbOk], 0);
+  bt_edit.Enabled := false;
+  bt_atualizar.Enabled := false;
+  bt_excluir.Enabled := false;
+  bt_save.Enabled := false;
+  bt_new.Enabled := true;
+
+end;
 
 procedure Tfrm_compras.bt_confirmarClick(Sender: TObject);
 begin
@@ -142,9 +164,18 @@ begin
         Panel4.Visible := false;
         Panel1.Visible := false;
         Panel5.Visible := false;
+        Panel6.Visible := false;
         bt_itens.Enabled := true;
         painel0.Visible := true;
         Panel3.Visible := true;
+        Label6.Visible := true;
+        db_subtotal.Visible := true;
+        bt_save.Visible := true;
+        bt_edit.Visible := true;
+        bt_excluir.Visible := true;
+        bt_itens.Visible := true;
+        bt_atualizar.Visible := true;
+        frm_principal.Q_padraoitem.Refresh;
 
 
       end
@@ -191,6 +222,31 @@ begin
   Panel3.Visible := false;
 end;
 
+procedure Tfrm_compras.bt_excluirClick(Sender: TObject);
+begin
+
+  if MessageDlg('Deseja excluir essa compra?', mtConfirmation, [mbOk, mbNo], 0) = mrOk then
+    begin
+      Q_padraoitem.First;
+      while Q_padraoitem.RecordCount > 0 do
+        begin
+          if Q_produtos.Locate('ID_PRODUTO', Q_padraoitemID_PRODUTO.AsInteger, []) then
+            begin
+              Q_produtos.Edit;
+              Q_produtos.FieldByName('ESTOQUE').AsFloat :=
+              Q_produtos.FieldByName('ESTOQUE').AsFloat -
+              Q_padraoitemQTDE.AsFloat;
+              Q_produtos.Refresh;
+              Q_padraoitem.Delete;
+            end;
+        end;
+        Q_padrao.delete;
+        Messagedlg('Compra excluída com sucesso!', mtInformation, [mbOk], 0);
+    end
+    else
+    abort;
+end;
+
 procedure Tfrm_compras.bt_itemClick(Sender: TObject);
   var proximo : integer;
 
@@ -211,6 +267,7 @@ begin
   Panel5.Visible := true;
   Panel3.Visible := false;
   painel0.Visible := false;
+  Panel6.Visible := false;
 
 end;
 
@@ -220,7 +277,46 @@ begin
   Q_padraoCADASTRO.AsDateTime := Date;
   Q_padraoUSUARIO.AsString := 'LUCCA ALMEIDA';
   Q_padraoVALOR.AsCurrency := 0;
-  db_valor.SetFocus;
+  cb_fornecedor.SetFocus;
+  bt_edit.Enabled := false;
+  bt_atualizar.Enabled := false;
+  bt_excluir.Enabled := false;
+
+
+end;
+
+procedure Tfrm_compras.bt_pesquisarClick(Sender: TObject);
+begin
+
+  Q_padraoitem.Open();
+  Panel1.Visible := true;
+  Panel6.Visible := true;
+  Panel4.Visible := true;
+  Panel5.Visible := true;
+  db_aux1.Enabled := true;
+  db_aux2.Enabled := true;
+  db_aux3.Enabled := true;
+  db_aux4.Enabled := true;
+  db_aux5.Enabled := true;
+  db_aux6.Enabled := true;
+  bt_save2.Enabled := true;
+  painel0.Visible := false;
+  Panel3.Visible := false;
+
+  frm_pesquisacompra := Tfrm_pesquisacompra.Create(self);
+  Frm_pesquisacompra.ShowModal;
+  try
+    if frm_pesquisacompra.codigo > 0 then
+        begin
+          Q_padrao.Open();
+          Q_padrao.Locate('ID_COMPRA',Frm_pesquisacompra.codigo,[]);
+        end;
+
+  finally
+    frm_pesquisacompra.Free;
+    frm_pesquisacompra := nil;
+  end;
+
 end;
 
 procedure Tfrm_compras.bt_save2Click(Sender: TObject);
@@ -252,6 +348,13 @@ begin
   Panel5.Visible := true;
   Panel3.Visible := false;
   painel0.Visible := false;
+
+end;
+
+procedure Tfrm_compras.DBLookupComboBox2Click(Sender: TObject);
+begin
+  inherited;
+  bt_save.Visible := true;
 
 end;
 
@@ -291,5 +394,13 @@ begin
   Q_padraoitemVL_CUSTO.AsFloat) - (Q_padraoitemDESCONTO.AsFloat);
   Q_padraoitem.Refresh;
 end;
+
+procedure Tfrm_compras.db_vl_itemChange(Sender: TObject);
+begin
+  inherited;
+  bt_confirmar.Enabled := true;
+
+end;
+
 
 end.
