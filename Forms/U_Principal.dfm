@@ -142,9 +142,9 @@ object frm_principal: Tfrm_principal
       object Label1: TLabel
         Left = 16
         Top = 4
-        Width = 186
+        Width = 193
         Height = 16
-        Caption = 'Quantidade Itens Comprado:'
+        Caption = 'Quantidade Itens Comprados:'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -153,7 +153,7 @@ object frm_principal: Tfrm_principal
         ParentFont = False
       end
       object DBText1: TDBText
-        Left = 208
+        Left = 215
         Top = 4
         Width = 65
         Height = 17

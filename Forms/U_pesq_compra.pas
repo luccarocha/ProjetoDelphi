@@ -46,6 +46,8 @@ implementation
 
 {$R *.dfm}
 
+uses U_compras;
+
 procedure Tfrm_pesquisacompra.BitBtn1Click(Sender: TObject);
 begin
   inherited;
@@ -70,7 +72,7 @@ begin
                         //+ 'A.PARCELA '
                         + 'FROM COMPRA A '
                         + 'INNER JOIN FORNECEDOR B ON A.ID_FORNECEDOR = B.ID_FORNECEDOR '
-                        + 'INNER JOIN FORMA_PGTO C ON A.ID_FORMA_PGTO = C.ID_FORMA_PGTO '); // add sql
+                        + 'INNER JOIN FORMA_PGTO C ON A.ID_FORMA_PGTO = C.ID_FORMA_PGTO'); // add sql
 
   case cb_chave_pesquisa.ItemIndex of
 
@@ -128,6 +130,7 @@ begin
   if Q_pesq_padrao.RecordCount > 0 then
     begin
       codigo := Q_pesq_padraoID_COMPRA.AsInteger;
+      frm_compras.Q_contaapagar.Open;
     end
   else
   abort;
@@ -217,7 +220,6 @@ begin
         lb_desc.Visible := false;
         ed_nome.Clear
       end;
-
 
 
       6:begin

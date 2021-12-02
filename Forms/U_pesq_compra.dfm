@@ -165,7 +165,7 @@ inherited frm_pesquisacompra: Tfrm_pesquisacompra
       end>
   end
   inherited q_pesq_padrao: TFDQuery
-    IndexFieldNames = 'CADASTRO'
+    IndexFieldNames = 'ID_COMPRA'
     AggregatesActive = True
     SQL.Strings = (
       

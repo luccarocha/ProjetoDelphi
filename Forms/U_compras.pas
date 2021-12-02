@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Vcl.Grids, Vcl.DBGrids, Vcl.DBCtrls, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.Mask;
+  Vcl.Mask, Vcl.ComCtrls;
 
 type
   Tfrm_compras = class(Tfrm_padraomovimento)
@@ -40,7 +40,7 @@ type
     Q_formapgtoID_FORMA_PGTO: TIntegerField;
     Q_formapgtoDESCRICAO: TStringField;
     cb_fornecedor: TDBLookupComboBox;
-    DBLookupComboBox2: TDBLookupComboBox;
+    cb_idformapgto: TDBLookupComboBox;
     Q_padraoNOME: TStringField;
     Q_padraoDESCRICAO: TStringField;
     Q_padraoitemID_SEQUENCIA: TIntegerField;
@@ -85,6 +85,23 @@ type
     bt_save2: TBitBtn;
     bt_itens: TBitBtn;
     BitBtn2: TBitBtn;
+    Q_padraoCOND_PGTO: TIntegerField;
+    Label20: TLabel;
+    db_condpgto: TDBEdit;
+    db_aux7: TDBEdit;
+    Label21: TLabel;
+    Q_contaapagar: TFDQuery;
+    ds_contaapagar: TDataSource;
+    Q_contaapagarID_SEQUENCIA: TIntegerField;
+    Q_contaapagarID_COMPRA: TIntegerField;
+    Q_contaapagarVALOR_PARCELA: TFMTBCDField;
+    Q_contaapagarDT_PAGAMENTO: TDateField;
+    Q_contaapagarATRASO: TIntegerField;
+    Q_contaapagarJUROS: TFMTBCDField;
+    Q_contaapagarVL_JUROS: TFMTBCDField;
+    Q_contaapagarTOTAL_PAGAR: TFMTBCDField;
+    Q_contaapagarSTATUS: TStringField;
+    Q_contaapagarDT_VENCIMENTO: TDateField;
     procedure bt_newClick(Sender: TObject);
     procedure bt_itemClick(Sender: TObject);
     procedure db_codprodExit(Sender: TObject);
@@ -99,8 +116,9 @@ type
     procedure BitBtn1Click(Sender: TObject);
     procedure bt_excluirClick(Sender: TObject);
     procedure bt_pesquisarClick(Sender: TObject);
-    procedure DBLookupComboBox2Click(Sender: TObject);
     procedure db_vl_itemChange(Sender: TObject);
+    procedure cb_fornecedorClick(Sender: TObject);
+    procedure cb_idformapgtoClick(Sender: TObject);
 
 
   private
@@ -133,6 +151,8 @@ begin
 end;
 
 procedure Tfrm_compras.bt_confirmarClick(Sender: TObject);
+var parcela: Integer;
+    diferenca, soma : Real;
 begin
 
   Q_padrao.Edit;
@@ -159,6 +179,71 @@ begin
     Q_produtos.Refresh;
     MessageDlg('Valor Atualizado!', mtInformation, [mbOk], 0);
 
+
+    //Insere parcela
+    parcela := 1;
+
+    Q_contaapagar.Open;
+    if  Q_contaapagar.Locate('ID_COMPRA', db_aux1.Text,[]) then
+      begin
+        //MessageDlg('Verifique as parcelas!', mtInformation, [mbOk], 0);
+      end
+    else
+    if (Q_padraoID_FORMA_PGTO.Value = 2) or (Q_padraoID_FORMA_PGTO.Value = 4) then
+      begin
+        while parcela <= Q_padraoCOND_PGTO.AsInteger do
+          begin
+            Q_contaapagar.Insert;
+            Q_contaapagarID_SEQUENCIA.AsInteger := parcela;
+            Q_contaapagar.FieldByName('valor_parcela').AsFloat :=
+            Q_padraoVALOR.AsFloat / Q_padraoCOND_PGTO.Value;
+            Q_contaapagar.FieldByName('dt_vencimento').Value :=date;
+            Q_contaapagar.FieldByName('dt_pagamento').Value :=date;
+            Q_contaapagar.FieldByName('atraso').AsFloat :=0;
+            Q_contaapagar.FieldByName('juros').AsFloat := 0;
+            Q_contaapagar.FieldByName('vl_juros').AsFloat := 0;
+            Q_contaapagar.FieldByName('total_pagar').AsFloat :=
+            Q_contaapagar.FieldByName('valor_parcela').AsFloat;
+            Q_contaapagar.FieldByName('status').AsString := 'F';
+            Q_contaapagar.Post;
+            inc(parcela);
+          end;
+    end
+    else
+    Q_contaapagar.First;
+    while parcela <= Q_padraoCOND_PGTO.AsInteger do
+      begin
+        Q_contaapagar.Insert;
+        Q_contaapagarID_SEQUENCIA.AsInteger := parcela;
+        Q_contaapagar.FieldByName('valor_parcela').AsFloat :=
+        Q_padraoVALOR.AsFloat / Q_padraoCOND_PGTO.Value;
+        Q_contaapagar.FieldByName('dt_vencimento').Value := date + (parcela * 30);
+        Q_contaapagar.FieldByName('atraso').AsFloat :=0;
+        Q_contaapagar.FieldByName('juros').AsFloat :=0;
+        Q_contaapagar.FieldByName('vl_juros').AsFloat :=0;
+        Q_contaapagar.FieldByName('total_pagar').AsFloat :=
+        Q_contaapagar.FieldByName('valor_parcela').AsFloat;
+        Q_contaapagar.FieldByName('status').AsString := 'P';
+        Q_contaapagar.Post;
+        inc(parcela);
+        Q_contaapagar.Next;
+      end;
+
+    //Cria processo pra tratar arredondamento parcelas
+    soma := soma + Q_padraoCOND_PGTO.Value * Q_contaapagar.FieldByName('valor_parcela').AsFloat;
+    if soma > Q_padraoVALOR.AsFloat then
+      begin
+        diferenca := soma - Q_padraoValor.AsFloat;
+        Q_contaapagar.Edit;
+        Q_contaapagar.FieldByName('valor_parcela').AsFloat :=
+        Q_contaapagar.FieldByName('valor_parcela').AsFloat - diferenca;
+        Q_contaapagar.Refresh;
+
+      end;
+
+    MessageDlg('Verifique as parcelas!', mtInformation, [mbOk], 0);
+
+
     if MessageDlg('Deseja finalizar compra?', mtConfirmation, [mbOk, mbNo], 0) = mrOk then
       begin
         Panel4.Visible := false;
@@ -176,8 +261,8 @@ begin
         bt_itens.Visible := true;
         bt_atualizar.Visible := true;
         frm_principal.Q_padraoitem.Refresh;
-
-
+        label6.Visible := false;
+        db_subtotal.Visible := false;
       end
       else
       abort;
@@ -217,6 +302,7 @@ begin
   db_aux4.Enabled := true;
   db_aux5.Enabled := true;
   db_aux6.Enabled := true;
+  db_aux7.Enabled := true;
   bt_save2.Enabled := true;
   painel0.Visible := false;
   Panel3.Visible := false;
@@ -242,6 +328,7 @@ begin
         end;
         Q_padrao.delete;
         Messagedlg('Compra excluída com sucesso!', mtInformation, [mbOk], 0);
+        frm_principal.Q_padraoitem.Refresh;
     end
     else
     abort;
@@ -262,8 +349,8 @@ end;
 
 procedure Tfrm_compras.bt_itensClick(Sender: TObject);
 begin
-  Panel1.Visible := true;
   Panel4.Visible := true;
+  Panel1.Visible := true;
   Panel5.Visible := true;
   Panel3.Visible := false;
   painel0.Visible := false;
@@ -277,7 +364,6 @@ begin
   Q_padraoCADASTRO.AsDateTime := Date;
   Q_padraoUSUARIO.AsString := 'LUCCA ALMEIDA';
   Q_padraoVALOR.AsCurrency := 0;
-  cb_fornecedor.SetFocus;
   bt_edit.Enabled := false;
   bt_atualizar.Enabled := false;
   bt_excluir.Enabled := false;
@@ -299,6 +385,7 @@ begin
   db_aux4.Enabled := true;
   db_aux5.Enabled := true;
   db_aux6.Enabled := true;
+  db_aux7.Enabled := true;
   bt_save2.Enabled := true;
   painel0.Visible := false;
   Panel3.Visible := false;
@@ -333,6 +420,7 @@ begin
         bt_itens.Enabled := false;
         painel0.Visible := true;
         Panel3.Visible := true;
+        frm_principal.Q_padraoitem.Refresh;
       end
       else
       abort;
@@ -351,10 +439,22 @@ begin
 
 end;
 
-procedure Tfrm_compras.DBLookupComboBox2Click(Sender: TObject);
+procedure Tfrm_compras.cb_fornecedorClick(Sender: TObject);
 begin
   inherited;
   bt_save.Visible := true;
+
+end;
+
+procedure Tfrm_compras.cb_idformapgtoClick(Sender: TObject);
+begin
+  if (cb_idformapgto.Text = 'Crédito') then
+  begin
+    db_condpgto.Enabled := true;
+    db_condpgto.SetFocus;
+  end
+  else
+  db_condpgto.Text := Inttostr(1);
 
 end;
 
@@ -401,6 +501,5 @@ begin
   bt_confirmar.Enabled := true;
 
 end;
-
 
 end.

@@ -210,20 +210,48 @@ inherited frm_padraomovimento: Tfrm_padraomovimento
     ParentBackground = False
     TabOrder = 3
   end
-  object DBGrid1: TDBGrid [5]
+  object PageControl1: TPageControl [5]
     Left = 0
     Top = 241
     Width = 936
     Height = 420
+    ActivePage = tab_contas
     Align = alClient
-    FixedColor = clCream
     TabOrder = 4
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
-    Visible = False
+    object tab_produto: TTabSheet
+      Caption = 'Itens Compra'
+      object DBGrid1: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 928
+        Height = 392
+        Align = alClient
+        DataSource = ds_padraoitem
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
+    object tab_contas: TTabSheet
+      Caption = 'Conta '#224' Pagar'
+      ImageIndex = 1
+      object DBGrid2: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 928
+        Height = 392
+        Align = alClient
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
   end
   inherited Q_padrao: TFDQuery
     Left = 880

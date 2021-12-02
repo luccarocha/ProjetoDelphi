@@ -1,11 +1,11 @@
 inherited frm_compras: Tfrm_compras
   Left = 549
-  Caption = '  Procedimento de Compras'
-  ClientHeight = 547
+  Caption = 'Contas '#224' Pagar'
+  ClientHeight = 558
   ClientWidth = 946
   Position = poMainFormCenter
   ExplicitWidth = 952
-  ExplicitHeight = 576
+  ExplicitHeight = 587
   PixelsPerInch = 96
   TextHeight = 13
   inherited SpeedButton1: TSpeedButton
@@ -15,21 +15,21 @@ inherited frm_compras: Tfrm_compras
     ExplicitTop = 168
   end
   inherited painel0: TPanel
-    Top = 482
+    Top = 493
     Width = 946
     Align = alBottom
     BorderStyle = bsSingle
-    ExplicitTop = 482
+    ExplicitTop = 493
     ExplicitWidth = 946
     inherited SpeedButton10: TSpeedButton
       Width = 0
       ExplicitWidth = 0
     end
     inherited bt_pesquisar: TBitBtn
-      Left = 718
+      Left = 127
       Top = 8
       OnClick = bt_pesquisarClick
-      ExplicitLeft = 718
+      ExplicitLeft = 127
       ExplicitTop = 8
     end
     inherited bt_atualizar: TBitBtn
@@ -69,10 +69,10 @@ inherited frm_compras: Tfrm_compras
       ExplicitTop = 8
     end
     inherited bt_save: TBitBtn
-      Left = 127
+      Left = 718
       Top = 8
       Visible = False
-      ExplicitLeft = 127
+      ExplicitLeft = 718
       ExplicitTop = 8
     end
     object bt_itens: TBitBtn
@@ -94,12 +94,12 @@ inherited frm_compras: Tfrm_compras
     end
   end
   inherited Panel1: TPanel
-    Top = 311
+    Top = 428
     Width = 946
     Height = 65
     BorderStyle = bsSingle
     Visible = False
-    ExplicitTop = 311
+    ExplicitTop = 428
     ExplicitWidth = 946
     ExplicitHeight = 65
     inherited DBNavigator1: TDBNavigator
@@ -152,20 +152,20 @@ inherited frm_compras: Tfrm_compras
     ExplicitTop = 156
   end
   inherited Panel3: TPanel
-    Top = 376
+    Top = 326
     Width = 946
-    Height = 106
+    Height = 102
     Align = alBottom
     BorderStyle = bsSingle
-    ExplicitTop = 376
+    ExplicitTop = 326
     ExplicitWidth = 946
-    ExplicitHeight = 106
+    ExplicitHeight = 102
     object Label1: TLabel
-      Left = 10
-      Top = 51
-      Width = 95
+      Left = 12
+      Top = 43
+      Width = 44
       Height = 13
-      Caption = 'C'#211'DIGO COMPRA'
+      Caption = 'C'#211'DIGO'
       FocusControl = db_codcompra
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -175,8 +175,8 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 488
-      Top = 51
+      Left = 741
+      Top = 43
       Width = 72
       Height = 13
       Caption = 'FORNECEDOR'
@@ -189,8 +189,8 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label3: TLabel
-      Left = 652
-      Top = 51
+      Left = 451
+      Top = 43
       Width = 73
       Height = 13
       Caption = 'FORMA PGTO'
@@ -203,11 +203,11 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label4: TLabel
-      Left = 151
-      Top = 51
-      Width = 82
+      Left = 142
+      Top = 43
+      Width = 31
       Height = 13
-      Caption = 'DATA COMPRA'
+      Caption = 'DATA'
       FocusControl = db_cadastro
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -217,8 +217,8 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label5: TLabel
-      Left = 299
-      Top = 51
+      Left = 282
+      Top = 43
       Width = 52
       Height = 13
       Caption = 'USU'#193'RIO'
@@ -231,8 +231,8 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 818
-      Top = 52
+      Left = 571
+      Top = 11
       Width = 37
       Height = 13
       Caption = 'VALOR'
@@ -246,7 +246,7 @@ inherited frm_compras: Tfrm_compras
       Visible = False
     end
     object Label12: TLabel
-      Left = 9
+      Left = 12
       Top = 10
       Width = 171
       Height = 19
@@ -258,9 +258,23 @@ inherited frm_compras: Tfrm_compras
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object Label20: TLabel
+      Left = 612
+      Top = 43
+      Width = 75
+      Height = 13
+      Caption = 'QNT PARCELA'
+      FocusControl = db_condpgto
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object db_codcompra: TDBEdit
-      Left = 9
-      Top = 70
+      Left = 12
+      Top = 62
       Width = 110
       Height = 21
       DataField = 'ID_COMPRA'
@@ -276,7 +290,7 @@ inherited frm_compras: Tfrm_compras
       DataField = 'ID_FORNECEDOR'
       DataSource = ds_padrao
       Enabled = False
-      TabOrder = 6
+      TabOrder = 8
     end
     object db_formapgto: TDBEdit
       Left = 797
@@ -286,11 +300,11 @@ inherited frm_compras: Tfrm_compras
       DataField = 'ID_FORMA_PGTO'
       DataSource = ds_padrao
       Enabled = False
-      TabOrder = 7
+      TabOrder = 9
     end
     object db_cadastro: TDBEdit
-      Left = 151
-      Top = 70
+      Left = 142
+      Top = 62
       Width = 120
       Height = 21
       DataField = 'CADASTRO'
@@ -298,8 +312,8 @@ inherited frm_compras: Tfrm_compras
       TabOrder = 1
     end
     object db_usuario: TDBEdit
-      Left = 299
-      Top = 70
+      Left = 282
+      Top = 62
       Width = 150
       Height = 21
       DataField = 'USUARIO'
@@ -314,107 +328,53 @@ inherited frm_compras: Tfrm_compras
       Height = 21
       DataField = 'VALOR'
       DataSource = ds_padrao
-      TabOrder = 3
+      TabOrder = 7
     end
     object cb_fornecedor: TDBLookupComboBox
-      Left = 488
-      Top = 70
+      Left = 741
+      Top = 62
       Width = 133
       Height = 21
       DataField = 'NOME'
       DataSource = ds_padrao
-      TabOrder = 4
+      TabOrder = 5
+      OnClick = cb_fornecedorClick
     end
-    object DBLookupComboBox2: TDBLookupComboBox
-      Left = 652
-      Top = 70
+    object cb_idformapgto: TDBLookupComboBox
+      Left = 451
+      Top = 62
       Width = 136
       Height = 21
       DataField = 'DESCRICAO'
       DataSource = ds_padrao
-      TabOrder = 5
-      OnClick = DBLookupComboBox2Click
+      TabOrder = 3
+      OnClick = cb_idformapgtoClick
     end
     object db_subtotal: TDBEdit
-      Left = 818
-      Top = 71
+      Left = 628
+      Top = 4
       Width = 110
       Height = 21
       DataField = 'VALOR'
       DataSource = ds_padrao
       Enabled = False
-      TabOrder = 8
+      TabOrder = 6
       Visible = False
     end
+    object db_condpgto: TDBEdit
+      Left = 612
+      Top = 62
+      Width = 91
+      Height = 21
+      DataField = 'COND_PGTO'
+      DataSource = ds_padrao
+      Enabled = False
+      TabOrder = 4
+    end
   end
-  inherited DBGrid1: TDBGrid
-    Top = 138
-    Width = 946
-    Height = 68
-    DataSource = ds_padraoitem
-    ParentFont = False
-    TitleFont.Style = [fsBold]
-    Visible = True
-    Columns = <
-      item
-        Expanded = False
-        FieldName = 'ID_SEQUENCIA'
-        Title.Caption = 'SEQ.'
-        Width = 32
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'ID_PRODUTO'
-        Title.Caption = 'C'#211'D. PRODUTO'
-        Width = 98
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'DESCRICAO'
-        Title.Caption = 'DESCRI'#199#195'O'
-        Width = 267
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'QTDE'
-        Title.Caption = 'QUANTIDADE'
-        Width = 94
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'VL_CUSTO'
-        Title.Caption = 'VALOR CUSTO'
-        Width = 121
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'DESCONTO'
-        Width = 97
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'TOTAL_ITEM'
-        Title.Caption = 'TOTAL ITEM'
-        Width = 95
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'ID_COMPRA'
-        Title.Caption = 'C'#211'D. COMPRA'
-        Width = 115
-        Visible = True
-      end>
-  end
-  object Panel4: TPanel [6]
+  object Panel4: TPanel [5]
     Left = 0
-    Top = 206
+    Top = 221
     Width = 946
     Height = 105
     Align = alBottom
@@ -427,7 +387,7 @@ inherited frm_compras: Tfrm_compras
     Font.Style = []
     ParentBackground = False
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 4
     Visible = False
     object Label7: TLabel
       Left = 9
@@ -562,7 +522,7 @@ inherited frm_compras: Tfrm_compras
       OnChange = db_vl_itemChange
     end
   end
-  object Panel5: TPanel [7]
+  object Panel5: TPanel [6]
     Left = 0
     Top = 0
     Width = 946
@@ -571,7 +531,7 @@ inherited frm_compras: Tfrm_compras
     BorderStyle = bsSingle
     Color = clGradientInactiveCaption
     ParentBackground = False
-    TabOrder = 6
+    TabOrder = 5
     Visible = False
     object Label13: TLabel
       Left = 12
@@ -586,9 +546,10 @@ inherited frm_compras: Tfrm_compras
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      Visible = False
     end
     object Label14: TLabel
-      Left = 153
+      Left = 12
       Top = 16
       Width = 82
       Height = 13
@@ -602,7 +563,7 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label15: TLabel
-      Left = 301
+      Left = 151
       Top = 16
       Width = 52
       Height = 13
@@ -616,7 +577,7 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label16: TLabel
-      Left = 477
+      Left = 764
       Top = 16
       Width = 37
       Height = 13
@@ -630,7 +591,7 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label17: TLabel
-      Left = 628
+      Left = 321
       Top = 16
       Width = 72
       Height = 13
@@ -644,12 +605,26 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
     end
     object Label18: TLabel
-      Left = 792
+      Left = 482
       Top = 16
       Width = 73
       Height = 13
       Caption = 'FORMA PGTO'
       FocusControl = db_formapgto
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label21: TLabel
+      Left = 647
+      Top = 16
+      Width = 75
+      Height = 13
+      Caption = 'QNT PARCELA'
+      FocusControl = db_aux7
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -672,9 +647,10 @@ inherited frm_compras: Tfrm_compras
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 0
+      Visible = False
     end
     object db_aux2: TDBEdit
-      Left = 153
+      Left = 12
       Top = 35
       Width = 120
       Height = 21
@@ -690,7 +666,7 @@ inherited frm_compras: Tfrm_compras
       TabOrder = 1
     end
     object db_aux3: TDBEdit
-      Left = 301
+      Left = 151
       Top = 35
       Width = 150
       Height = 21
@@ -706,7 +682,7 @@ inherited frm_compras: Tfrm_compras
       TabOrder = 2
     end
     object db_aux4: TDBEdit
-      Left = 477
+      Left = 764
       Top = 35
       Width = 110
       Height = 21
@@ -722,7 +698,7 @@ inherited frm_compras: Tfrm_compras
       TabOrder = 3
     end
     object db_aux5: TDBLookupComboBox
-      Left = 628
+      Left = 321
       Top = 35
       Width = 133
       Height = 21
@@ -738,7 +714,7 @@ inherited frm_compras: Tfrm_compras
       TabOrder = 4
     end
     object db_aux6: TDBLookupComboBox
-      Left = 792
+      Left = 482
       Top = 35
       Width = 136
       Height = 21
@@ -753,8 +729,24 @@ inherited frm_compras: Tfrm_compras
       ParentFont = False
       TabOrder = 5
     end
+    object db_aux7: TDBEdit
+      Left = 647
+      Top = 35
+      Width = 91
+      Height = 21
+      DataField = 'COND_PGTO'
+      DataSource = ds_padrao
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+    end
   end
-  object Panel6: TPanel [8]
+  object Panel6: TPanel [7]
     Left = 0
     Top = 73
     Width = 946
@@ -763,7 +755,7 @@ inherited frm_compras: Tfrm_compras
     BorderStyle = bsSingle
     Color = clGradientActiveCaption
     ParentBackground = False
-    TabOrder = 7
+    TabOrder = 6
     Visible = False
     object DBNavigator2: TDBNavigator
       Left = 680
@@ -805,6 +797,248 @@ inherited frm_compras: Tfrm_compras
       OnClick = bt_excluirClick
     end
   end
+  inherited PageControl1: TPageControl
+    Top = 138
+    Width = 946
+    Height = 83
+    ActivePage = tab_produto
+    TabOrder = 7
+    ExplicitTop = 138
+    ExplicitWidth = 946
+    ExplicitHeight = 83
+    inherited tab_produto: TTabSheet
+      ExplicitWidth = 938
+      ExplicitHeight = 55
+      inherited DBGrid1: TDBGrid
+        Width = 938
+        Height = 55
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ID_SEQUENCIA'
+            Title.Caption = 'ITEM'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_PRODUTO'
+            Title.Caption = 'C'#211'D. PRODUTO'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 130
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESCRICAO'
+            Title.Caption = 'DESCRI'#199#195'O'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 164
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'QTDE'
+            Title.Caption = 'QUANT.'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 67
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VL_CUSTO'
+            Title.Caption = 'VALOR CUSTO'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 125
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESCONTO'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 125
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'TOTAL_ITEM'
+            Title.Caption = 'TOTAL ITEM'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 125
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_COMPRA'
+            Title.Caption = 'C'#211'D. COMPRA'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 110
+            Visible = True
+          end>
+      end
+    end
+    inherited tab_contas: TTabSheet
+      ExplicitWidth = 938
+      ExplicitHeight = 55
+      inherited DBGrid2: TDBGrid
+        Width = 938
+        Height = 55
+        DataSource = ds_contaapagar
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'ID_SEQUENCIA'
+            Title.Caption = 'PARCELA'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 72
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'STATUS'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DT_VENCIMENTO'
+            Title.Caption = 'DATA VENC.'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 88
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DT_PAGAMENTO'
+            Title.Caption = 'DATA PAG.'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 88
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VALOR_PARCELA'
+            Title.Caption = 'VALOR PARCELA'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 110
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'JUROS'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 80
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VL_JUROS'
+            Title.Caption = 'VALOR JUROS'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 110
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ATRASO'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 80
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'TOTAL_PAGAR'
+            Title.Caption = 'TOTAL PAGAR'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 110
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_COMPRA'
+            Title.Caption = 'C'#211'D. COMPRA'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 110
+            Visible = True
+          end>
+      end
+    end
+  end
   inherited Q_padrao: TFDQuery
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
@@ -813,9 +1047,9 @@ inherited frm_compras: Tfrm_compras
     SQL.Strings = (
       
         'select id_compra, id_fornecedor,id_forma_pgto, usuario, valor, c' +
-        'adastro from  compra')
-    Left = 144
-    Top = 144
+        'adastro,cond_pgto from  compra')
+    Left = 232
+    Top = 88
     object Q_padraoID_COMPRA: TFDAutoIncField
       FieldName = 'ID_COMPRA'
       Origin = 'ID_COMPRA'
@@ -870,10 +1104,14 @@ inherited frm_compras: Tfrm_compras
       Size = 100
       Lookup = True
     end
+    object Q_padraoCOND_PGTO: TIntegerField
+      FieldName = 'COND_PGTO'
+      Origin = 'COND_PGTO'
+    end
   end
   inherited ds_padrao: TDataSource
-    Left = 200
-    Top = 144
+    Left = 272
+    Top = 88
   end
   inherited Q_padraoitem: TFDQuery
     IndexFieldNames = 'ID_COMPRA'
@@ -886,7 +1124,8 @@ inherited frm_compras: Tfrm_compras
         'SELECT ID_SEQUENCIA, ID_COMPRA, ID_PRODUTO, QTDE, VL_CUSTO, DESC' +
         'ONTO, TOTAL_ITEM FROM ITEM_COMPRA'
       'WHERE ID_COMPRA=:ID_COMPRA')
-    Left = 640
+    Left = 160
+    Top = 225
     ParamData = <
       item
         Name = 'ID_COMPRA'
@@ -960,8 +1199,8 @@ inherited frm_compras: Tfrm_compras
     end
   end
   inherited ds_padraoitem: TDataSource
-    Left = 720
-    Top = 153
+    Left = 224
+    Top = 225
   end
   object Q_forne: TFDQuery
     MasterSource = ds_padrao
@@ -970,8 +1209,8 @@ inherited frm_compras: Tfrm_compras
       
         'select id_fornecedor, nome from fornecedor order by  id_forneced' +
         'or')
-    Left = 488
-    Top = 145
+    Left = 768
+    Top = 329
     object Q_forneID_FORNECEDOR: TIntegerField
       FieldName = 'ID_FORNECEDOR'
       Origin = 'ID_FORNECEDOR'
@@ -987,8 +1226,8 @@ inherited frm_compras: Tfrm_compras
   end
   object ds_fornecedor: TDataSource
     DataSet = Q_forne
-    Left = 552
-    Top = 145
+    Left = 824
+    Top = 329
   end
   object Q_formapgto: TFDQuery
     MasterSource = ds_padrao
@@ -997,8 +1236,8 @@ inherited frm_compras: Tfrm_compras
       
         'select id_forma_pgto, descricao from forma_pgto order by id_form' +
         'a_pgto')
-    Left = 272
-    Top = 145
+    Left = 440
+    Top = 329
     object Q_formapgtoID_FORMA_PGTO: TIntegerField
       FieldName = 'ID_FORMA_PGTO'
       Origin = 'ID_FORMA_PGTO'
@@ -1014,8 +1253,8 @@ inherited frm_compras: Tfrm_compras
   end
   object ds_formapgto: TDataSource
     DataSet = Q_formapgto
-    Left = 336
-    Top = 145
+    Left = 488
+    Top = 329
   end
   object Q_produtos: TFDQuery
     Connection = DM.Conexao
@@ -1023,7 +1262,90 @@ inherited frm_compras: Tfrm_compras
       
         'select id_produto, produto_descricao, estoque, estoque_min, vl_c' +
         'usto from produto order by id_produto')
-    Left = 784
-    Top = 160
+    Left = 288
+    Top = 224
+  end
+  object Q_contaapagar: TFDQuery
+    MasterSource = ds_padrao
+    MasterFields = 'ID_COMPRA'
+    Connection = DM.Conexao
+    SQL.Strings = (
+      
+        'select id_sequencia, id_compra, valor_parcela,dt_vencimento, dt_' +
+        'pagamento, atraso, juros, vl_juros, total_pagar, status from con' +
+        'tas_pagar'
+      'where id_compra =:id_compra')
+    Left = 704
+    Top = 233
+    ParamData = <
+      item
+        Name = 'ID_COMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object Q_contaapagarID_SEQUENCIA: TIntegerField
+      FieldName = 'ID_SEQUENCIA'
+      Origin = 'ID_SEQUENCIA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object Q_contaapagarID_COMPRA: TIntegerField
+      FieldName = 'ID_COMPRA'
+      Origin = 'ID_COMPRA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object Q_contaapagarVALOR_PARCELA: TFMTBCDField
+      FieldName = 'VALOR_PARCELA'
+      Origin = 'VALOR_PARCELA'
+      Required = True
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object Q_contaapagarDT_PAGAMENTO: TDateField
+      FieldName = 'DT_PAGAMENTO'
+      Origin = 'DT_PAGAMENTO'
+    end
+    object Q_contaapagarATRASO: TIntegerField
+      FieldName = 'ATRASO'
+      Origin = 'ATRASO'
+    end
+    object Q_contaapagarJUROS: TFMTBCDField
+      FieldName = 'JUROS'
+      Origin = 'JUROS'
+      Precision = 18
+      Size = 2
+    end
+    object Q_contaapagarVL_JUROS: TFMTBCDField
+      FieldName = 'VL_JUROS'
+      Origin = 'VL_JUROS'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object Q_contaapagarTOTAL_PAGAR: TFMTBCDField
+      FieldName = 'TOTAL_PAGAR'
+      Origin = 'TOTAL_PAGAR'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object Q_contaapagarSTATUS: TStringField
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      Size = 30
+    end
+    object Q_contaapagarDT_VENCIMENTO: TDateField
+      FieldName = 'DT_VENCIMENTO'
+      Origin = 'DT_VENCIMENTO'
+      Required = True
+    end
+  end
+  object ds_contaapagar: TDataSource
+    DataSet = Q_contaapagar
+    Left = 816
+    Top = 225
   end
 end

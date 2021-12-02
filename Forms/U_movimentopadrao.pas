@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.StdCtrls,
-  Vcl.Buttons, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids;
+  Vcl.Buttons, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls;
 
 type
   Tfrm_padraomovimento = class(Tfrm_padrao)
@@ -22,9 +22,13 @@ type
     bt_del: TBitBtn;
     bt_imprimir: TBitBtn;
     Panel3: TPanel;
-    DBGrid1: TDBGrid;
     Q_padraoitem: TFDQuery;
     ds_padraoitem: TDataSource;
+    PageControl1: TPageControl;
+    tab_produto: TTabSheet;
+    tab_contas: TTabSheet;
+    DBGrid1: TDBGrid;
+    DBGrid2: TDBGrid;
     procedure bt_newClick(Sender: TObject);
     procedure bt_excluirClick(Sender: TObject);
     procedure botoes();
