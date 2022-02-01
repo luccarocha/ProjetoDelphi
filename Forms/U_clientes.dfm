@@ -2,6 +2,8 @@ inherited frm_clientes: Tfrm_clientes
   Caption = '   Cadastro de Clientes'
   ClientHeight = 581
   ClientWidth = 493
+  OnActivate = FormActivate
+  OnClose = FormClose
   ExplicitWidth = 499
   ExplicitHeight = 610
   PixelsPerInch = 96

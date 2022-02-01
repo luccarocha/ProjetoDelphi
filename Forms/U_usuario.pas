@@ -36,6 +36,7 @@ type
     procedure bt_novoClick(Sender: TObject);
     procedure bt_gravarClick(Sender: TObject);
     procedure bt_pesquisarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -49,7 +50,7 @@ implementation
 
 {$R *.dfm}
 
-uses U_pesq_user;
+uses U_pesq_user, U_Principal;
 
 procedure Tfrm_usuario.bt_gravarClick(Sender: TObject);
 begin
@@ -90,4 +91,10 @@ begin
 end;
 
 end;
+procedure Tfrm_usuario.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frm_principal.Panel2.Visible := false;
+
+end;
+
 end.

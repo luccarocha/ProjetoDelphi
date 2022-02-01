@@ -1,7 +1,5 @@
 unit U_produto;
-
 interface
-
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, U_Formpadrao, FireDAC.Stan.Intf,
@@ -9,7 +7,6 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.StdCtrls,
   Vcl.Buttons, Vcl.ExtCtrls, Vcl.Mask;
-
 type
   Tfrm_produto = class(Tfrm_padrao)
     Q_padraoID_PRODUTO: TIntegerField;
@@ -49,54 +46,42 @@ type
     procedure ExibeTelaVisualizaProduto();
     procedure bt_gravarClick(Sender: TObject);
     procedure bt_deletarClick(Sender: TObject);
-
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
     { Public declarations }
   end;
-
 var
   frm_produto: Tfrm_produto;
-
 implementation
-
 {$R *.dfm}
-
 uses U_pesq_prod, U_Principal;
-
 procedure Tfrm_produto.bt_deletarClick(Sender: TObject);
 begin
   inherited;
-  frm_principal.Q_estoque.Refresh;
-
+  //frm_principal.Q_estoque.Refresh;
 end;
-
 procedure Tfrm_produto.bt_gravarClick(Sender: TObject);
 begin
   inherited;
-  frm_principal.Q_estoque.Refresh;
-
+  //frm_principal.Q_estoque.Refresh;
 
 end;
-
 procedure Tfrm_produto.bt_novoClick(Sender: TObject);
 begin
   inherited;
   db_cadastro.Text := DateTostr(now);
   db_id_produto.SetFocus;
 end;
-
 procedure Tfrm_produto.bt_pesquisarClick(Sender: TObject);
 begin
   ExibeTelaVisualizaProduto;
 end;
-
 procedure Tfrm_produto.ExibeTelaVisualizaProduto;
 begin
     frm_pesq_prod := Tfrm_pesq_prod.Create(self);
     Frm_pesq_prod.ShowModal;
-
     try
       Q_padrao.Open();
       Q_padrao.Locate('ID_PRODUTO',Frm_pesq_PROD.codigo,[]);
@@ -104,6 +89,11 @@ begin
       frm_pesq_prod.Free;
       frm_pesq_prod := nil;
     end;
+end;
+procedure Tfrm_produto.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ frm_principal.Panel2.Visible := false;
+
 end;
 
 end.

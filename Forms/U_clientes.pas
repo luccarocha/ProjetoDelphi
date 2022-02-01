@@ -1,7 +1,5 @@
 unit U_clientes;
-
 interface
-
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, U_Formpadrao, FireDAC.Stan.Intf,
@@ -9,7 +7,6 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.DBCtrls, Vcl.Buttons,
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask;
-
 type
   Tfrm_clientes = class(Tfrm_padrao)
     Q_padraoID_CLIENTE: TFDAutoIncField;
@@ -51,36 +48,29 @@ type
     procedure bt_novoClick(Sender: TObject);
     procedure bt_pesquisarClick(Sender: TObject);
     procedure ExibeTelaVisualizaCliente();
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
   end;
-
 var
   frm_clientes: Tfrm_clientes;
-
 implementation
-
 {$R *.dfm}
-
-uses U_pesq_client;
-
+uses U_pesq_client, U_Principal;
 procedure Tfrm_clientes.bt_novoClick(Sender: TObject);
 begin
   inherited;
   db_cadastro.Text := DateTostr(now);
   db_nome.SetFocus;
-
 end;
-
 procedure Tfrm_clientes.bt_pesquisarClick(Sender: TObject);
 begin
   ExibeTelaVisualizaCliente;
 
-
 end;
-
 procedure Tfrm_clientes.ExibeTelaVisualizaCliente;
 begin
   begin
@@ -97,6 +87,18 @@ begin
       frm_pesq_client := nil;
     end;
   end;
+end;
+procedure Tfrm_clientes.FormActivate(Sender: TObject);
+begin
+  frm_principal.Panel2.Visible := false;
+  frm_principal.Panel2.Visible := true;
+
+end;
+
+procedure Tfrm_clientes.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frm_principal.Panel2.Visible := false;
+
 end;
 
 end.

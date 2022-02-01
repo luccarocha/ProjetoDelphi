@@ -2,6 +2,7 @@ inherited frm_pesq_prod: Tfrm_pesq_prod
   Caption = '   Visualiza Produtos'
   Visible = False
   OnActivate = FormActivate
+  ExplicitLeft = 2
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel

@@ -102,6 +102,7 @@ type
     Q_contaapagarTOTAL_PAGAR: TFMTBCDField;
     Q_contaapagarSTATUS: TStringField;
     Q_contaapagarDT_VENCIMENTO: TDateField;
+    DBEdit1: TDBEdit;
     procedure bt_newClick(Sender: TObject);
     procedure bt_itemClick(Sender: TObject);
     procedure db_codprodExit(Sender: TObject);
@@ -119,6 +120,7 @@ type
     procedure db_vl_itemChange(Sender: TObject);
     procedure cb_fornecedorClick(Sender: TObject);
     procedure cb_idformapgtoClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
 
   private
@@ -177,17 +179,56 @@ begin
     end;
 
     Q_produtos.Refresh;
-    MessageDlg('Valor Atualizado!', mtInformation, [mbOk], 0);
-
 
     //Insere parcela
     parcela := 1;
 
     Q_contaapagar.Open;
+
     if  Q_contaapagar.Locate('ID_COMPRA', db_aux1.Text,[]) then
       begin
-        //MessageDlg('Verifique as parcelas!', mtInformation, [mbOk], 0);
-      end
+      if (Q_padraoID_FORMA_PGTO.Value = 2) or (Q_padraoID_FORMA_PGTO.Value = 4) then
+      begin
+        while parcela <= Q_padraoCOND_PGTO.AsInteger do
+          begin
+            Q_contaapagar.Edit;
+            Q_contaapagarID_SEQUENCIA.AsInteger := parcela;
+            Q_contaapagar.FieldByName('valor_parcela').AsFloat :=
+            Q_padraoVALOR.AsFloat / Q_padraoCOND_PGTO.Value;
+            Q_contaapagar.FieldByName('dt_vencimento').Value :=date;
+            Q_contaapagar.FieldByName('dt_pagamento').Value :=date;
+            Q_contaapagar.FieldByName('atraso').AsFloat :=0;
+            Q_contaapagar.FieldByName('juros').AsFloat := 0;
+            Q_contaapagar.FieldByName('vl_juros').AsFloat := 0;
+            Q_contaapagar.FieldByName('total_pagar').AsFloat :=
+            Q_contaapagar.FieldByName('valor_parcela').AsFloat;
+            Q_contaapagar.FieldByName('status').AsString := 'F';
+            Q_contaapagar.Post;
+            inc(parcela);
+          end;
+     end
+     else
+     Q_contaapagar.First;
+
+     while parcela <= Q_padraoCOND_PGTO.AsInteger do
+        begin
+          Q_contaapagar.Edit;
+          Q_contaapagarID_SEQUENCIA.AsInteger := parcela;
+          Q_contaapagar.FieldByName('valor_parcela').AsFloat :=
+          Q_padraoVALOR.AsFloat / Q_padraoCOND_PGTO.Value;
+          Q_contaapagar.FieldByName('dt_vencimento').Value := date + (parcela * 30);
+          Q_contaapagar.FieldByName('atraso').AsFloat :=0;
+          Q_contaapagar.FieldByName('juros').AsFloat :=0;
+          Q_contaapagar.FieldByName('vl_juros').AsFloat :=0;
+          Q_contaapagar.FieldByName('total_pagar').AsFloat :=
+          Q_contaapagar.FieldByName('valor_parcela').AsFloat;
+          Q_contaapagar.FieldByName('status').AsString := 'P';
+          Q_contaapagar.Post;
+          inc(parcela);
+          Q_contaapagar.Next;
+        end;
+
+    end
     else
     if (Q_padraoID_FORMA_PGTO.Value = 2) or (Q_padraoID_FORMA_PGTO.Value = 4) then
       begin
@@ -241,7 +282,10 @@ begin
 
       end;
 
-    MessageDlg('Verifique as parcelas!', mtInformation, [mbOk], 0);
+     if (Q_padraoID_FORMA_PGTO.Value = 6)  then
+      begin
+        MessageDlg('Verifique as parcelas!', mtInformation, [mbOk], 0);
+      end;
 
 
     if MessageDlg('Deseja finalizar compra?', mtConfirmation, [mbOk, mbNo], 0) = mrOk then
@@ -260,7 +304,7 @@ begin
         bt_excluir.Visible := true;
         bt_itens.Visible := true;
         bt_atualizar.Visible := true;
-        frm_principal.Q_padraoitem.Refresh;
+        //frm_principal.Q_padraoitem.Refresh;
         label6.Visible := false;
         db_subtotal.Visible := false;
       end
@@ -313,6 +357,14 @@ begin
 
   if MessageDlg('Deseja excluir essa compra?', mtConfirmation, [mbOk, mbNo], 0) = mrOk then
     begin
+
+     Q_contaapagar.First;
+      while not Q_contaapagar.eof do
+        begin
+          Q_contaapagar.Delete;
+          Q_contaapagar.Next;
+        end;
+
       Q_padraoitem.First;
       while Q_padraoitem.RecordCount > 0 do
         begin
@@ -328,7 +380,7 @@ begin
         end;
         Q_padrao.delete;
         Messagedlg('Compra excluída com sucesso!', mtInformation, [mbOk], 0);
-        frm_principal.Q_padraoitem.Refresh;
+        //frm_principal.Q_padraoitem.Refresh;
     end
     else
     abort;
@@ -420,7 +472,7 @@ begin
         bt_itens.Enabled := false;
         painel0.Visible := true;
         Panel3.Visible := true;
-        frm_principal.Q_padraoitem.Refresh;
+        //frm_principal.Q_padraoitem.Refresh;
       end
       else
       abort;
@@ -500,6 +552,11 @@ begin
   inherited;
   bt_confirmar.Enabled := true;
 
+end;
+
+procedure Tfrm_compras.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frm_principal.Panel2.Visible := false;
 end;
 
 end.

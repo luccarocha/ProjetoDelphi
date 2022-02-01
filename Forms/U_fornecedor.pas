@@ -59,6 +59,7 @@ type
     procedure bt_novoClick(Sender: TObject);
     procedure bt_pesquisarClick(Sender: TObject);
     procedure ExibeTelaVisualizaFornecedor();
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -72,7 +73,7 @@ implementation
 
 {$R *.dfm}
 
-uses U_pesq_forne;
+uses U_pesq_forne, U_Principal;
 
 procedure Tfrm_fornecedor.bt_novoClick(Sender: TObject);
 begin
@@ -103,6 +104,12 @@ begin
     frm_pesq_forne.Free;
     frm_pesq_forne := nil;
   end;
+end;
+
+procedure Tfrm_fornecedor.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frm_principal.Panel2.Visible := false;
+
 end;
 
 end.

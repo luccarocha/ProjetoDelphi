@@ -4,6 +4,7 @@ inherited frm_compras: Tfrm_compras
   ClientHeight = 558
   ClientWidth = 946
   Position = poMainFormCenter
+  OnClose = FormClose
   ExplicitWidth = 952
   ExplicitHeight = 587
   PixelsPerInch = 96
@@ -744,6 +745,22 @@ inherited frm_compras: Tfrm_compras
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 6
+    end
+    object DBEdit1: TDBEdit
+      Left = 764
+      Top = 35
+      Width = 110
+      Height = 21
+      DataField = 'SUBTOTAL'
+      DataSource = ds_padraoitem
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 7
     end
   end
   object Panel6: TPanel [7]
